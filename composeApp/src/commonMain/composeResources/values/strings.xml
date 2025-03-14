@@ -1,7 +1,18 @@
 <resources>
-    <string name="cyclone">Cyclone</string>
-    <string name="open_github">Open github</string>
-    <string name="run">Run</string>
-    <string name="stop">Stop</string>
-    <string name="theme">Theme</string>
+    <string name="hello">Привет!</string>
+    <string name="fill_your_data">Заполните свои данные</string>
+    <string name="email">Email</string>
+    <string name="email_hint">xyz@gmail.com</string>
+    <string name="password">Пароль</string>
+    <string name="password_hint">•••••••</string>
+    <string name="sign_in">Войти</string>
+    <string name="create_user">Создать пользователя</string>
+    <string name="registration">Регистрация</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="name_hint">xxxxxxxx</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="already_have_an_account">Есть аккаунт? </string>
+    <string name="is_first_time">Вы впервые? </string>
+    <string name="show_password">Показать пароль</string>
+    <string name="hide_password">Скрыть пароль</string>
 </resources>

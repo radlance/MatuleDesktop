@@ -14,13 +14,13 @@ import java.awt.Dimension
 
 fun main() = application {
     var currentScreen by remember { mutableStateOf(Screen.SignIn) }
-
     Window(
         title = "MatuleDesktop",
         state = rememberWindowState(width = 800.dp, height = 600.dp),
         onCloseRequest = ::exitApplication,
     ) {
         window.minimumSize = Dimension(350, 600)
+
 
         when (currentScreen) {
             Screen.SignIn -> SignInScreen(
@@ -31,5 +31,7 @@ fun main() = application {
                 navigateToSignInScreen = { currentScreen = Screen.SignIn }
             )
         }
+
+
     }
 }

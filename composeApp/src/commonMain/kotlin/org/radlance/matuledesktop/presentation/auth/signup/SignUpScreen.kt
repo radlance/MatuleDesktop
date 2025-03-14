@@ -3,12 +3,15 @@ package org.radlance.matuledesktop.presentation.auth.signup
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -20,16 +23,31 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import matuledesktop.composeapp.generated.resources.Res
+import matuledesktop.composeapp.generated.resources.already_have_an_account
+import matuledesktop.composeapp.generated.resources.email
+import matuledesktop.composeapp.generated.resources.email_hint
+import matuledesktop.composeapp.generated.resources.fill_your_data
+import matuledesktop.composeapp.generated.resources.name_hint
+import matuledesktop.composeapp.generated.resources.password
+import matuledesktop.composeapp.generated.resources.password_hint
+import matuledesktop.composeapp.generated.resources.registration
+import matuledesktop.composeapp.generated.resources.sign_in
+import matuledesktop.composeapp.generated.resources.sign_up
+import matuledesktop.composeapp.generated.resources.your_name
+import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.presentation.auth.common.PasswordState
 
 @Composable
 fun SignUpScreen(
     navigateToSignInScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var passwordState by remember { mutableStateOf<PasswordState>(PasswordState.Invisible) }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -40,16 +58,15 @@ fun SignUpScreen(
         var passwordFieldValue by remember { mutableStateOf("") }
 
         Text(
-            text = "Регистрация",
+            text = stringResource(Res.string.registration),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             lineHeight = 38.sp,
-            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(top = 11.dp)
         )
 
         Text(
-            text = "Заполните свои данные",
+            text = stringResource(Res.string.fill_your_data),
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             lineHeight = 24.sp,
@@ -62,8 +79,8 @@ fun SignUpScreen(
         OutlinedTextField(
             value = nameFieldValue,
             onValueChange = { nameFieldValue = it },
-            label = { Text(text = "Ваше имя") },
-            placeholder = { Text(text = "xxxxxxxx") },
+            label = { Text(text = stringResource(Res.string.your_name)) },
+            placeholder = { Text(text = stringResource(Res.string.name_hint)) },
             singleLine = true,
             modifier = Modifier.width(300.dp)
         )
@@ -71,8 +88,8 @@ fun SignUpScreen(
         OutlinedTextField(
             value = emailFieldValue,
             onValueChange = { emailFieldValue = it },
-            label = { Text(text = "Email") },
-            placeholder = { Text(text = "xyz@gmail.com") },
+            label = { Text(text = stringResource(Res.string.email)) },
+            placeholder = { Text(text = stringResource(Res.string.email_hint)) },
             singleLine = true,
             modifier = Modifier.width(300.dp)
         )
@@ -81,27 +98,44 @@ fun SignUpScreen(
             value = passwordFieldValue,
             onValueChange = { passwordFieldValue = it },
             singleLine = true,
-            label = { Text(text = "Пароль") },
-            placeholder = { Text(text = "•••••••") },
-            modifier = Modifier.width(300.dp),
-            visualTransformation = PasswordVisualTransformation()
-            )
+            label = { Text(text = stringResource(Res.string.password)) },
+            placeholder = { Text(text = stringResource(Res.string.password_hint)) },
+            visualTransformation = passwordState.visualTransformation(),
+            trailingIcon = {
+                IconButton(onClick = { passwordState = passwordState.inverse() }) {
+                    Icon(
+                        imageVector = passwordState.icon(),
+                        contentDescription = stringResource(passwordState.contentDescriptionId())
+                    )
+                }
+            },
+            modifier = Modifier.width(300.dp)
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {}) {
-            Text(text = "Зарегистрироваться")
+            Text(text = stringResource(Res.string.sign_up))
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Text(
-            text = "Войти",
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Medium,
-            lineHeight = 1.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.clickable { navigateToSignInScreen() }
-        )
+        Row {
+            Text(
+                text = stringResource(Res.string.already_have_an_account),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                lineHeight = 1.sp
+            )
+
+            Text(
+                text = stringResource(Res.string.sign_in),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                lineHeight = 1.sp,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable { navigateToSignInScreen() }
+            )
+        }
     }
 }
