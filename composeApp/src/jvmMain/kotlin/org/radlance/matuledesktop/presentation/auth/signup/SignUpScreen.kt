@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.auth.signup
+package org.radlance.matuledesktop.auth.signup
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,7 +39,7 @@ import matuledesktop.composeapp.generated.resources.sign_in
 import matuledesktop.composeapp.generated.resources.sign_up
 import matuledesktop.composeapp.generated.resources.your_name
 import org.jetbrains.compose.resources.stringResource
-import org.radlance.matuledesktop.presentation.auth.common.PasswordState
+import org.radlance.matuledesktop.auth.common.PasswordState
 
 @Composable
 fun SignUpScreen(

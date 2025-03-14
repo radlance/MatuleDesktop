@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.core
+package org.radlance.matuledesktop.core
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

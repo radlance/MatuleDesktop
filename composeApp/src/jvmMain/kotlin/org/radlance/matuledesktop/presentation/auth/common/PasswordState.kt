@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.auth.common
+package org.radlance.matuledesktop.auth.common
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
