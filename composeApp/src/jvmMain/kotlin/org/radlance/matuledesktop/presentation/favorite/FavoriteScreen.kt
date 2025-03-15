@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.home
+package org.radlance.matuledesktop.presentation.favorite
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,13 +8,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 
-object HomeScreen : Screen {
-    private fun readResolve(): Any = HomeScreen
+object FavoriteScreen : Screen {
+    private fun readResolve(): Any = FavoriteScreen
 
     @Composable
     override fun Content() {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(text = "home screen")
+            Text(text = "favorite screen")
         }
     }
 }

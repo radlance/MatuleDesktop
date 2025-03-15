@@ -20,4 +20,6 @@
     <string name="account_already_exist">Аккаунт с такой почтой уже существует</string>
     <string name="verification_error">Ошибка верификации</string>
     <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="home_screen">Главная</string>
+    <string name="favorite">Избранное</string>
 </resources>

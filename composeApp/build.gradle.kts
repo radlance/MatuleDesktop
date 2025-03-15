@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            implementation(libs.voyager.tab.navigator)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
 

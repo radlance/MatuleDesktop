@@ -22,7 +22,7 @@ fun main() = application {
         window.minimumSize = Dimension(350, 600)
 
         AppTheme {
-            Navigator(SignInScreen()) { navigator ->
+            Navigator(SignInScreen) { navigator ->
                 SlideTransition(navigator)
             }
         }

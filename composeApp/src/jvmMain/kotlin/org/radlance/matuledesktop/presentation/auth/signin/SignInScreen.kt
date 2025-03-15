@@ -42,12 +42,13 @@ import matuledesktop.composeapp.generated.resources.password
 import matuledesktop.composeapp.generated.resources.sign_in
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.radlance.matuledesktop.navigation.MainScreen
 import org.radlance.matuledesktop.presentation.auth.common.PasswordState
 import org.radlance.matuledesktop.presentation.auth.signup.SignUpScreen
 import org.radlance.matuledesktop.presentation.common.AuthScaffold
-import org.radlance.matuledesktop.presentation.home.HomeScreen
 
-class SignInScreen : Screen {
+object SignInScreen : Screen {
+    private fun readResolve(): Any = SignInScreen
 
     @Composable
     override fun Content() {
@@ -62,7 +63,7 @@ class SignInScreen : Screen {
         val snackBarHostState = remember { SnackbarHostState() }
 
         signInResultUiState.Show(
-            onSuccessResult = { navigator.push(HomeScreen()) },
+            onSuccessResult = { navigator.push(MainScreen()) },
             snackBarHostState = snackBarHostState
         )
 
@@ -153,7 +154,7 @@ class SignInScreen : Screen {
                         fontWeight = FontWeight.Medium,
                         lineHeight = 1.sp,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable { navigator.push(SignUpScreen()) }
+                        modifier = Modifier.clickable { navigator.push(SignUpScreen) }
                     )
                 }
             }
