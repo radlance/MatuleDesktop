@@ -13,8 +13,10 @@ composeIcons = "1.1.1"
 supabase = "3.0.2"
 ktor = "3.0.1"
 koin = "4.0.2"
+slf4jSimple = "2.0.17"
 
 [libraries]
+slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4jSimple" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }

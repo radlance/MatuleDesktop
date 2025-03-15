@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            api(libs.slf4j.simple)
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
