@@ -28,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.already_have_an_account
 import matuledesktop.composeapp.generated.resources.email
@@ -44,136 +47,139 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.radlance.matuledesktop.presentation.auth.common.PasswordState
 import org.radlance.matuledesktop.presentation.common.AuthScaffold
+import org.radlance.matuledesktop.presentation.home.HomeScreen
 
-@Composable
-fun SignUpScreen(
-    navigateToSignInScreen: () -> Unit,
-    navigateToHomeScreen: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val viewModel = koinViewModel<SignUpViewModel>()
+class SignUpScreen : Screen {
 
-    var passwordState by remember { mutableStateOf<PasswordState>(PasswordState.Invisible) }
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
 
-    val authUiState by viewModel.authUiState.collectAsState()
-    val signUpResultUiState by viewModel.signUpResultUiState.collectAsState()
-    val snackBarHostState = remember { SnackbarHostState() }
+        val viewModel = koinViewModel<SignUpViewModel>()
 
-    signUpResultUiState.Show(
-        onSuccessResult = navigateToHomeScreen,
-        snackBarHostState = snackBarHostState
-    )
+        var passwordState by remember { mutableStateOf<PasswordState>(PasswordState.Invisible) }
 
-    AuthScaffold(snackBarHostState) {
-        Column(
-            modifier = modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            var nameFieldValue by remember { mutableStateOf("") }
-            var emailFieldValue by remember { mutableStateOf("") }
-            var passwordFieldValue by remember { mutableStateOf("") }
+        val authUiState by viewModel.authUiState.collectAsState()
+        val signUpResultUiState by viewModel.signUpResultUiState.collectAsState()
+        val snackBarHostState = remember { SnackbarHostState() }
 
-            Text(
-                text = stringResource(Res.string.registration),
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                lineHeight = 38.sp,
-                modifier = Modifier.padding(top = 11.dp)
-            )
+        signUpResultUiState.Show(
+            onSuccessResult = { navigator.push(HomeScreen()) },
+            snackBarHostState = snackBarHostState
+        )
 
-            Text(
-                text = stringResource(Res.string.fill_your_data),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Normal,
-                lineHeight = 24.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+        AuthScaffold(snackBarHostState) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                var nameFieldValue by remember { mutableStateOf("") }
+                var emailFieldValue by remember { mutableStateOf("") }
+                var passwordFieldValue by remember { mutableStateOf("") }
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = stringResource(Res.string.registration),
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold,
+                    lineHeight = 38.sp,
+                    modifier = Modifier.padding(top = 11.dp)
+                )
 
-            OutlinedTextField(
-                value = nameFieldValue,
-                onValueChange = {
-                    nameFieldValue = it
-                    viewModel.resetNameError()
-                },
-                label = { Text(text = stringResource(Res.string.your_name)) },
-                placeholder = { Text(text = stringResource(Res.string.name_hint)) },
-                singleLine = true,
-                isError = !authUiState.isCorrectName,
-                modifier = Modifier.width(300.dp)
-            )
+                Text(
+                    text = stringResource(Res.string.fill_your_data),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Normal,
+                    lineHeight = 24.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
 
-            OutlinedTextField(
-                value = emailFieldValue,
-                onValueChange = {
-                    emailFieldValue = it
-                    viewModel.resetEmailError()
-                },
-                label = { Text(text = stringResource(Res.string.email)) },
-                placeholder = { Text(text = stringResource(Res.string.email_hint)) },
-                singleLine = true,
-                isError = !authUiState.isCorrectEmail,
-                modifier = Modifier.width(300.dp)
-            )
+                Spacer(modifier = Modifier.height(20.dp))
 
-            OutlinedTextField(
-                value = passwordFieldValue,
-                onValueChange = {
-                    passwordFieldValue = it
-                    viewModel.resetPasswordError()
-                },
-                singleLine = true,
-                isError = !authUiState.isCorrectPassword,
-                label = { Text(text = stringResource(Res.string.password)) },
-                placeholder = { Text(text = stringResource(Res.string.password_hint)) },
-                visualTransformation = passwordState.visualTransformation(),
-                trailingIcon = {
-                    IconButton(onClick = { passwordState = passwordState.inverse() }) {
-                        Icon(
-                            imageVector = passwordState.icon(),
-                            contentDescription = stringResource(passwordState.contentDescriptionId())
+                OutlinedTextField(
+                    value = nameFieldValue,
+                    onValueChange = {
+                        nameFieldValue = it
+                        viewModel.resetNameError()
+                    },
+                    label = { Text(text = stringResource(Res.string.your_name)) },
+                    placeholder = { Text(text = stringResource(Res.string.name_hint)) },
+                    singleLine = true,
+                    isError = !authUiState.isCorrectName,
+                    modifier = Modifier.width(300.dp)
+                )
+
+                OutlinedTextField(
+                    value = emailFieldValue,
+                    onValueChange = {
+                        emailFieldValue = it
+                        viewModel.resetEmailError()
+                    },
+                    label = { Text(text = stringResource(Res.string.email)) },
+                    placeholder = { Text(text = stringResource(Res.string.email_hint)) },
+                    singleLine = true,
+                    isError = !authUiState.isCorrectEmail,
+                    modifier = Modifier.width(300.dp)
+                )
+
+                OutlinedTextField(
+                    value = passwordFieldValue,
+                    onValueChange = {
+                        passwordFieldValue = it
+                        viewModel.resetPasswordError()
+                    },
+                    singleLine = true,
+                    isError = !authUiState.isCorrectPassword,
+                    label = { Text(text = stringResource(Res.string.password)) },
+                    placeholder = { Text(text = stringResource(Res.string.password_hint)) },
+                    visualTransformation = passwordState.visualTransformation(),
+                    trailingIcon = {
+                        IconButton(onClick = { passwordState = passwordState.inverse() }) {
+                            Icon(
+                                imageVector = passwordState.icon(),
+                                contentDescription = stringResource(passwordState.contentDescriptionId())
+                            )
+                        }
+                    },
+                    modifier = Modifier.width(300.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Button(
+                    onClick = {
+                        viewModel.signUp(
+                            name = nameFieldValue,
+                            email = emailFieldValue,
+                            password = passwordFieldValue
                         )
                     }
-                },
-                modifier = Modifier.width(300.dp)
-            )
+                ) {
+                    Text(text = stringResource(Res.string.sign_up))
+                }
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            Button(
-                onClick = {
-                    viewModel.signUp(
-                        name = nameFieldValue,
-                        email = emailFieldValue,
-                        password = passwordFieldValue
+                Row {
+                    Text(
+                        text = stringResource(Res.string.already_have_an_account),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 1.sp
+                    )
+
+                    Text(
+                        text = stringResource(Res.string.sign_in),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        lineHeight = 1.sp,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable { navigator.pop() }
                     )
                 }
-            ) {
-                Text(text = stringResource(Res.string.sign_up))
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            Row {
-                Text(
-                    text = stringResource(Res.string.already_have_an_account),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    lineHeight = 1.sp
-                )
-
-                Text(
-                    text = stringResource(Res.string.sign_in),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                    lineHeight = 1.sp,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.clickable { navigateToSignInScreen() }
-                )
             }
         }
     }
+
 }

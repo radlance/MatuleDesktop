@@ -14,8 +14,12 @@ supabase = "3.0.2"
 ktor = "3.0.1"
 koin = "4.0.2"
 slf4jSimple = "2.0.17"
+voyager = "1.1.0-beta02"
 
 [libraries]
+voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
+voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "voyager" }
+
 slf4j-simple = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4jSimple" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }

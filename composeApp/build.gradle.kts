@@ -16,6 +16,9 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.transitions)
+
             api(libs.slf4j.simple)
             api(libs.koin.core)
             implementation(libs.koin.compose)
