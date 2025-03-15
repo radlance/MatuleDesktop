@@ -8,9 +8,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.radlance.matuledesktop.di.initCoin
+import org.radlance.matuledesktop.theme.AppTheme
 import java.awt.Dimension
 
 fun main() = application {
+    initCoin()
     var currentScreen by remember { mutableStateOf<Screen>(Screen.SignIn) }
 
     Window(
@@ -20,6 +23,8 @@ fun main() = application {
     ) {
         window.minimumSize = Dimension(350, 600)
 
-        currentScreen.Show(navigate = { currentScreen = it })
+        AppTheme {
+            currentScreen.Show(navigate = { currentScreen = it })
+        }
     }
 }

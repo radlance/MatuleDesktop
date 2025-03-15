@@ -1,5 +1,6 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.multiplatform)
@@ -13,7 +14,18 @@ kotlin {
     jvm()
 
     sourceSets {
+
         commonMain.dependencies {
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+
+            implementation(project.dependencies.platform(libs.supabase.bom))
+            implementation(libs.supabase.postgres)
+            implementation(libs.supabase.auth)
+            implementation(libs.ktor.client.core)
+            implementation(libs.supabase.storage)
+            implementation(libs.ktor.client.cio)
             implementation(compose.materialIconsExtended)
 
             implementation(compose.runtime)
@@ -70,6 +82,12 @@ compose.desktop {
 }
 
 buildConfig {
-    // BuildConfig configuration here.
-    // https://github.com/gmazzo/gradle-buildconfig-plugin#usage-in-kts
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    val supabaseUrl = properties.getProperty("supabase.url")
+    buildConfigField("String", "SUPABASE_URL", supabaseUrl)
+
+    val supabaseKey = properties.getProperty("supabase.key")
+    buildConfigField("String", "SUPABASE_KEY", supabaseKey)
 }

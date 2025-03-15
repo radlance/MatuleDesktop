@@ -15,4 +15,9 @@
     <string name="is_first_time">Вы впервые? </string>
     <string name="show_password">Показать пароль</string>
     <string name="hide_password">Скрыть пароль</string>
+    <string name="no_connection">Отсутствует соединение с интернетом</string>
+    <string name="incorrect_data_error">Данные введены неверно</string>
+    <string name="account_already_exist">Аккаунт с такой почтой уже существует</string>
+    <string name="verification_error">Ошибка верификации</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
 </resources>
