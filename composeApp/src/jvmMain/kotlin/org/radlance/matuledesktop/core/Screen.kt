@@ -25,7 +25,10 @@ interface Screen {
 
         @Composable
         override fun Show(navigate: (Screen) -> Unit) {
-            SignUpScreen(navigateToSignInScreen = { navigate(SignIn) })
+            SignUpScreen(
+                navigateToSignInScreen = { navigate(SignIn) },
+                navigateToHomeScreen = { navigate(Home) }
+            )
         }
     }
 

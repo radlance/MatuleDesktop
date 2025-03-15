@@ -14,9 +14,14 @@ abstract class AuthViewModel(
         get() = authUiStateMutable.asStateFlow()
 
 
-    fun validateFields(email: String? = null, password: String? = null) {
+    fun validateFields(
+        name: String? = null,
+        email: String? = null,
+        password: String? = null
+    ) {
         authUiStateMutable.update { currentState ->
             currentState.copy(
+                isCorrectName = name?.let { validation.validName(it) } ?: true,
                 isCorrectEmail = email?.let { validation.validEmail(it) } ?: true,
                 isCorrectPassword = password?.let { validation.validPassword(password) } ?: true
             )
@@ -32,6 +37,12 @@ abstract class AuthViewModel(
     fun resetPasswordError() {
         authUiStateMutable.update { currentState ->
             currentState.copy(isCorrectPassword = true)
+        }
+    }
+
+    fun resetNameError() {
+        authUiStateMutable.update { currentState ->
+            currentState.copy(isCorrectName = true)
         }
     }
 }

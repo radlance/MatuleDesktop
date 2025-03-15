@@ -19,10 +19,12 @@ import org.radlance.matuledesktop.presentation.auth.common.AuthResultMapper
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultUiState
 import org.radlance.matuledesktop.presentation.auth.common.Validate
 import org.radlance.matuledesktop.presentation.auth.signin.SignInViewModel
+import org.radlance.matuledesktop.presentation.auth.signup.SignUpViewModel
 
 val authModule = module {
     singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
     viewModelOf(::SignInViewModel)
+    viewModelOf(::SignUpViewModel)
 
     singleOf(Validate::Base).bind<Validate>()
     singleOf(::AuthResultMapper).bind<AuthResult.Mapper<AuthResultUiState>>()

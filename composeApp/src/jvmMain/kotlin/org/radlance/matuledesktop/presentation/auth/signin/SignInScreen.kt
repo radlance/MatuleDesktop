@@ -51,8 +51,8 @@ internal fun SignInScreen(
     val viewModel = koinViewModel<SignInViewModel>()
 
     var passwordState by remember { mutableStateOf<PasswordState>(PasswordState.Invisible) }
-    val authUiState by viewModel.authUiState.collectAsState()
 
+    val authUiState by viewModel.authUiState.collectAsState()
     val signInResultUiState by viewModel.signInResultUiState.collectAsState()
     val snackBarHostState = remember { SnackbarHostState() }
 
