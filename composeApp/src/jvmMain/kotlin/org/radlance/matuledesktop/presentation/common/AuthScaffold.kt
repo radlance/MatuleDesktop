@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun AuthScaffold(
+internal fun AuthScaffold(
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,

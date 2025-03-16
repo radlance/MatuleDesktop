@@ -19,7 +19,7 @@ fun main() = application {
         state = rememberWindowState(width = 800.dp, height = 600.dp),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(350, 600)
+        window.minimumSize = Dimension(550, 600)
 
         AppTheme {
             Navigator(SignInScreen) { navigator ->

@@ -22,4 +22,11 @@
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="home_screen">Главная</string>
     <string name="favorite">Избранное</string>
+    <string name="all">Все</string>
+    <string name="categories">Категории</string>
+    <string name="load_error">Ошибка загрузки</string>
+    <string name="retry">Повторить</string>
+    <string name="popular">Популярное</string>
+    <string name="search">Поиск</string>
+
 </resources>

@@ -49,7 +49,7 @@ import org.radlance.matuledesktop.navigation.MainScreen
 import org.radlance.matuledesktop.presentation.auth.common.PasswordState
 import org.radlance.matuledesktop.presentation.common.AuthScaffold
 
-object SignUpScreen : Screen {
+internal object SignUpScreen : Screen {
     private fun readResolve(): Any = SignUpScreen
 
     @Composable

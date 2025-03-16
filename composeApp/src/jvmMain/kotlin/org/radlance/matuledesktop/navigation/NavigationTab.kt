@@ -12,7 +12,7 @@ import matuledesktop.composeapp.generated.resources.favorite
 import matuledesktop.composeapp.generated.resources.home_screen
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.favorite.FavoriteScreen
-import org.radlance.matuledesktop.presentation.home.HomeScreen
+import org.radlance.matuledesktop.presentation.home.core.HomeScreen
 
 interface NavigationTab : Tab {
 

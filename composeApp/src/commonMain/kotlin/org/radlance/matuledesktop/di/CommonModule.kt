@@ -13,13 +13,16 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.radlance.matuledesktop.data.auth.AuthRepositoryImpl
+import org.radlance.matuledesktop.data.product.RemoteProductRepository
 import org.radlance.matuledesktop.domain.auth.AuthRepository
 import org.radlance.matuledesktop.domain.auth.AuthResult
+import org.radlance.matuledesktop.domain.product.ProductRepository
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultMapper
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultUiState
 import org.radlance.matuledesktop.presentation.auth.common.Validate
 import org.radlance.matuledesktop.presentation.auth.signin.SignInViewModel
 import org.radlance.matuledesktop.presentation.auth.signup.SignUpViewModel
+import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
 val authModule = module {
     singleOf(::AuthRepositoryImpl).bind<AuthRepository>()
@@ -45,4 +48,9 @@ val commonModule = module {
     }
 
     single<Auth> { get<SupabaseClient>().auth }
+}
+
+val productModule = module {
+    singleOf(::RemoteProductRepository).bind<ProductRepository>()
+    viewModelOf(::ProductViewModel)
 }

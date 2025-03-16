@@ -39,6 +39,7 @@ import matuledesktop.composeapp.generated.resources.fill_your_data
 import matuledesktop.composeapp.generated.resources.hello
 import matuledesktop.composeapp.generated.resources.is_first_time
 import matuledesktop.composeapp.generated.resources.password
+import matuledesktop.composeapp.generated.resources.password_hint
 import matuledesktop.composeapp.generated.resources.sign_in
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -47,7 +48,7 @@ import org.radlance.matuledesktop.presentation.auth.common.PasswordState
 import org.radlance.matuledesktop.presentation.auth.signup.SignUpScreen
 import org.radlance.matuledesktop.presentation.common.AuthScaffold
 
-object SignInScreen : Screen {
+internal object SignInScreen : Screen {
     private fun readResolve(): Any = SignInScreen
 
     @Composable
@@ -118,7 +119,7 @@ object SignInScreen : Screen {
                     singleLine = true,
                     isError = !authUiState.isCorrectPassword,
                     label = { Text(text = stringResource(Res.string.password)) },
-                    placeholder = { Text(text = stringResource(Res.string.password)) },
+                    placeholder = { Text(text = stringResource(Res.string.password_hint)) },
                     visualTransformation = passwordState.visualTransformation(),
                     trailingIcon = {
                         IconButton(onClick = { passwordState = passwordState.inverse() }) {

@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 
-object FavoriteScreen : Screen {
+internal object FavoriteScreen : Screen {
     private fun readResolve(): Any = FavoriteScreen
 
     @Composable
