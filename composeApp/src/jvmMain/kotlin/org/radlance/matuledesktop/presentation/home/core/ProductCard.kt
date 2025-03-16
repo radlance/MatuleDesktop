@@ -39,6 +39,8 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.size.Size
 import org.radlance.matuledesktop.domain.product.Product
+import java.text.NumberFormat
+import java.util.Locale
 
 
 @Composable
@@ -52,8 +54,9 @@ internal fun ProductCard(
     Card(modifier = modifier.clickable { onCardClick(product.id) }) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
-            ProductCardMainInformation(
-                Modifier.align(Alignment.CenterHorizontally)
+            ProductCardImage(
+                imageUrl = product.imageUrl,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
                     .animateContentSize()
                     .fillMaxWidth()
                     .heightIn(max = 450.dp)
@@ -66,10 +69,13 @@ internal fun ProductCard(
 }
 
 @Composable
-private fun ProductCardMainInformation(modifier: Modifier = Modifier) {
+private fun ProductCardImage(
+    imageUrl: String,
+    modifier: Modifier = Modifier
+) {
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(PlatformContext.INSTANCE).size(Size.ORIGINAL)
-            .data("https://cdn.sportmaster.ru/upload/mdm/media_content/resize/e72/1008_800_29dd/123039030299.jpg")
+            .data(imageUrl)
             .build(),
         imageLoader = ImageLoader(PlatformContext.INSTANCE)
             .newBuilder()
@@ -89,12 +95,14 @@ private fun ProductCardMainInformation(modifier: Modifier = Modifier) {
 
 @Composable
 private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLikeClick: () -> Unit) {
+    val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+
     Spacer(Modifier.height(12.dp))
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Column {
             Text(
-                text = product.price.toString(),
+                text = " ${numberFormat.format(product.price)} ₽",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 20.sp,

@@ -23,7 +23,7 @@ interface PasswordState {
 
     object Visible : PasswordState {
 
-        override fun icon(): ImageVector = Icons.Default.Visibility
+        override fun icon(): ImageVector = Icons.Default.VisibilityOff
 
         override fun inverse(): PasswordState = Invisible
 
@@ -34,7 +34,7 @@ interface PasswordState {
 
     object Invisible : PasswordState {
 
-        override fun icon(): ImageVector = Icons.Default.VisibilityOff
+        override fun icon(): ImageVector = Icons.Default.Visibility
 
         override fun inverse(): PasswordState = Visible
 

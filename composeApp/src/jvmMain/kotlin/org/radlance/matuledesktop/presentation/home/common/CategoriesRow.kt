@@ -1,5 +1,6 @@
 package org.radlance.matuledesktop.presentation.home.common
 
+import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +33,8 @@ internal fun CategoriesRow(
 ) {
     val allCategory = Category(id = 0, title = stringResource(Res.string.all))
     val allCategories = listOf(allCategory) + categories
+    val lazyListState = rememberLazyListState()
+
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
             text = stringResource(Res.string.categories),
@@ -43,6 +48,7 @@ internal fun CategoriesRow(
         Spacer(Modifier.height(16.dp))
 
         LazyRow(
+            state = lazyListState,
             horizontalArrangement = Arrangement.spacedBy(13.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -63,5 +69,12 @@ internal fun CategoriesRow(
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        HorizontalScrollbar(
+            modifier = Modifier.fillMaxWidth(),
+            adapter = rememberScrollbarAdapter(lazyListState)
+        )
     }
 }

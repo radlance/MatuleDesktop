@@ -74,7 +74,7 @@ internal object HomeScreen : Screen {
         )
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(vertical = 15.dp),
+            modifier = Modifier.fillMaxSize().padding(top = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
