@@ -16,10 +16,10 @@ fun main() = application {
 
     Window(
         title = "MatuleDesktop",
-        state = rememberWindowState(width = 800.dp, height = 600.dp),
+        state = rememberWindowState(width = 900.dp, height = 650.dp),
         onCloseRequest = ::exitApplication,
     ) {
-        window.minimumSize = Dimension(550, 600)
+        window.minimumSize = Dimension(750, 600)
 
         AppTheme {
             Navigator(SignInScreen) { navigator ->

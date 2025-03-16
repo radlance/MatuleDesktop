@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.ImageLoader
@@ -100,7 +101,7 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
     Spacer(Modifier.height(12.dp))
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Column {
+        Column(modifier = Modifier.weight(4f)) {
             Text(
                 text = " ${numberFormat.format(product.price)} ₽",
                 fontSize = 18.sp,
@@ -114,22 +115,26 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
             Text(
                 text = product.title,
                 fontSize = 14.sp,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
                 fontWeight = FontWeight.Normal,
                 lineHeight = 20.sp,
                 modifier = Modifier.padding(start = 9.dp)
             )
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Row(modifier = Modifier.weight(1.5f), verticalAlignment = Alignment.CenterVertically) {
+            Column {
+                IconButton(onClick = onCartClick) {
+                    val addIcon = if (product.quantityInCart == 0) {
+                        Icons.Default.Add
+                    } else {
+                        Icons.Default.ShoppingCart
+                    }
 
-        IconButton(onClick = onCartClick) {
-            val addIcon = if (product.quantityInCart == 0) {
-                Icons.Default.Add
-            } else {
-                Icons.Default.ShoppingCart
+                    Icon(imageVector = addIcon, contentDescription = null)
+                }
             }
-
-            Icon(imageVector = addIcon, contentDescription = null)
         }
 
         IconButton(onClick = onLikeClick) {
