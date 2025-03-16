@@ -8,14 +8,21 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import org.koin.compose.viewmodel.koinViewModel
+import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
 class MainScreen : Screen {
 
     @Composable
     override fun Content() {
-        val railTabs = listOf(NavigationTab.Home, NavigationTab.Favorite)
+        val viewModel = koinViewModel<ProductViewModel>()
 
-        TabNavigator(NavigationTab.Home) {
+        val railTabs = listOf(
+            NavigationTab.Home(viewModel),
+            NavigationTab.Favorite(viewModel)
+        )
+
+        TabNavigator(railTabs.first()) {
             Row(Modifier.fillMaxSize()) {
 
                 HomeNavigationRail(railTabs = railTabs)

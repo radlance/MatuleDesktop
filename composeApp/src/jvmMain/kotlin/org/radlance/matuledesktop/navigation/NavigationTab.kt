@@ -11,6 +11,7 @@ import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.favorite
 import matuledesktop.composeapp.generated.resources.home_screen
 import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.favorite.FavoriteScreen
 import org.radlance.matuledesktop.presentation.home.core.HomeScreen
 
@@ -19,9 +20,7 @@ interface NavigationTab : Tab {
     fun icon(): ImageVector
 
 
-    object Home : NavigationTab {
-
-        private fun readResolve(): Any = Home
+    data class Home(private val viewModel: ProductViewModel) : NavigationTab {
 
         override fun icon(): ImageVector = Icons.Default.Home
 
@@ -31,13 +30,11 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            HomeScreen.Content()
+            HomeScreen(viewModel).Content()
         }
     }
 
-    object Favorite : NavigationTab {
-
-        private fun readResolve(): Any = Favorite
+    data class Favorite(private val viewModel: ProductViewModel) : NavigationTab {
 
         override fun icon(): ImageVector = Icons.Default.Favorite
 
@@ -47,7 +44,7 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            FavoriteScreen.Content()
+            FavoriteScreen(viewModel).Content()
         }
     }
 }

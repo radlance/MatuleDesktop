@@ -31,18 +31,17 @@ import matuledesktop.composeapp.generated.resources.load_error
 import matuledesktop.composeapp.generated.resources.retry
 import matuledesktop.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.viewmodel.koinViewModel
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
 import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
 
-internal object HomeScreen : Screen {
-    private fun readResolve(): Any = HomeScreen
+internal class HomeScreen(
+    private val viewModel: ProductViewModel
+) : Screen {
 
     @Composable
     override fun Content() {
         val verticalScrollState = rememberScrollState()
-        val viewModel = koinViewModel<ProductViewModel>()
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
