@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.all
 import matuledesktop.composeapp.generated.resources.popular
@@ -22,6 +23,7 @@ import org.radlance.matuledesktop.domain.product.Product
 
 @Composable
 internal fun PopularRow(
+    imageLoader: ImageLoader,
     products: List<Product>,
     onLikeClick: (productId: Int) -> Unit,
     onAddCartClick: (productId: Int) -> Unit,
@@ -30,37 +32,42 @@ internal fun PopularRow(
     navigateToPopular: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
-        Row(
-            modifier = modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(Res.string.popular),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                lineHeight = 24.sp
-            )
+    val popularProducts = products.filter { it.isPopular }.take(3)
 
-            Text(
-                text = stringResource(Res.string.all),
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
-                lineHeight = 16.sp,
-                modifier = Modifier.clickable { navigateToPopular() }
-            )
-        }
+    if (popularProducts.isNotEmpty()) {
+        Column(modifier = modifier.fillMaxWidth()) {
+            Row(
+                modifier = modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(Res.string.popular),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 24.sp
+                )
 
-        Spacer(Modifier.height(16.dp))
+                Text(
+                    text = stringResource(Res.string.all),
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    lineHeight = 16.sp,
+                    modifier = Modifier.clickable { navigateToPopular() }
+                )
+            }
 
-        if (products.isNotEmpty()) {
+            Spacer(Modifier.height(16.dp))
+
+
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                products.take(3).forEach { product ->
+                popularProducts.forEach { product ->
                     ProductCard(
+                        imageLoader = imageLoader,
                         onLikeClick = {
                             onLikeClick(product.id)
                         },

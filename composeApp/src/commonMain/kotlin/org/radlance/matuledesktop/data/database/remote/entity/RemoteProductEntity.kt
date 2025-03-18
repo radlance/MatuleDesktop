@@ -11,4 +11,5 @@ data class RemoteProductEntity(
     val price: Double,
     @SerialName("image_url") val imageUrl: String,
     @SerialName("category_id") val categoryId: Int,
+    @SerialName("is_popular") val isPopular: Boolean
 )

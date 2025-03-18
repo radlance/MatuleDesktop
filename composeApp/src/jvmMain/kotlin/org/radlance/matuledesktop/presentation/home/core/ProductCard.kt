@@ -37,7 +37,6 @@ import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.compose.SubcomposeAsyncImage
 import coil3.request.ImageRequest
-import coil3.request.crossfade
 import coil3.size.Size
 import org.radlance.matuledesktop.domain.product.Product
 import java.text.NumberFormat
@@ -46,6 +45,7 @@ import java.util.Locale
 
 @Composable
 internal fun ProductCard(
+    imageLoader: ImageLoader,
     product: Product,
     onLikeClick: () -> Unit,
     onCartClick: () -> Unit,
@@ -54,8 +54,8 @@ internal fun ProductCard(
 ) {
     Card(modifier = modifier.clickable { onCardClick(product.id) }) {
         Column(modifier = Modifier.fillMaxWidth()) {
-
             ProductCardImage(
+                imageLoader = imageLoader,
                 imageUrl = product.imageUrl,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
                     .animateContentSize()
@@ -71,6 +71,7 @@ internal fun ProductCard(
 
 @Composable
 private fun ProductCardImage(
+    imageLoader: ImageLoader,
     imageUrl: String,
     modifier: Modifier = Modifier
 ) {
@@ -78,10 +79,7 @@ private fun ProductCardImage(
         model = ImageRequest.Builder(PlatformContext.INSTANCE).size(Size.ORIGINAL)
             .data(imageUrl)
             .build(),
-        imageLoader = ImageLoader(PlatformContext.INSTANCE)
-            .newBuilder()
-            .crossfade(true)
-            .build(),
+        imageLoader = imageLoader,
         contentDescription = "shoe_example",
         contentScale = ContentScale.FillWidth,
         loading = {

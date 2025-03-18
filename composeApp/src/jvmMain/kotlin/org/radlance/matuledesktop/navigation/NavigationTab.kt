@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.favorite
 import matuledesktop.composeapp.generated.resources.home_screen
@@ -20,7 +21,10 @@ interface NavigationTab : Tab {
     fun icon(): ImageVector
 
 
-    data class Home(private val viewModel: ProductViewModel) : NavigationTab {
+    data class Home(
+        private val imageLoader: ImageLoader,
+        private val viewModel: ProductViewModel
+    ) : NavigationTab {
 
         override fun icon(): ImageVector = Icons.Default.Home
 
@@ -30,11 +34,14 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            HomeScreen(viewModel).Content()
+            HomeScreen(imageLoader, viewModel)
         }
     }
 
-    data class Favorite(private val viewModel: ProductViewModel) : NavigationTab {
+    data class Favorite(
+        private val imageLoader: ImageLoader,
+        private val viewModel: ProductViewModel
+    ) : NavigationTab {
 
         override fun icon(): ImageVector = Icons.Default.Favorite
 
@@ -44,7 +51,7 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            FavoriteScreen(viewModel).Content()
+            FavoriteScreen(imageLoader, viewModel).Content()
         }
     }
 }

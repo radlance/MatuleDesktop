@@ -15,12 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import coil3.ImageLoader
 import org.radlance.matuledesktop.domain.product.Product
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.home.core.ProductCard
 
 @Composable
 fun ProductGrid(
+    imageLoader: ImageLoader,
     products: List<Product>,
     viewModel: ProductViewModel,
     navigateToCart: () -> Unit,
@@ -31,6 +33,7 @@ fun ProductGrid(
 
     Box {
         LazyVerticalGrid(
+            state = lazyGridState,
             columns = GridCells.Fixed(3),
             modifier = modifier.fillMaxSize().padding(end = 10.dp),
             horizontalArrangement = Arrangement.spacedBy(13.dp),
@@ -38,6 +41,7 @@ fun ProductGrid(
         ) {
             items(items = products, key = { product -> product.id }) { product ->
                 ProductCard(
+                    imageLoader = imageLoader,
                     product = product,
                     onLikeClick = { viewModel.changeFavoriteStatus(product.id) },
                     onCartClick = {

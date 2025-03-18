@@ -8,5 +8,6 @@ data class Product(
     val categoryId: Int,
     val isFavorite: Boolean,
     val quantityInCart: Int,
+    val isPopular: Boolean,
     val id: Int = 0
 )
