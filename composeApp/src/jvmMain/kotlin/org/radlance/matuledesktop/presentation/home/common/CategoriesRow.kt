@@ -4,6 +4,7 @@ import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,7 +30,8 @@ internal fun CategoriesRow(
     categories: List<Category>,
     onCategoryClick: (Int?) -> Unit,
     selectedCategoryId: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    paddingValues: PaddingValues = PaddingValues(end = 15.dp)
 ) {
     val allCategory = Category(id = 0, title = stringResource(Res.string.all))
     val allCategories = listOf(allCategory) + categories
@@ -50,6 +52,7 @@ internal fun CategoriesRow(
         LazyRow(
             state = lazyListState,
             horizontalArrangement = Arrangement.spacedBy(13.dp),
+            contentPadding = paddingValues,
             modifier = Modifier.fillMaxWidth()
         ) {
             items(items = allCategories, key = { category -> category.id }) { categoryItem ->

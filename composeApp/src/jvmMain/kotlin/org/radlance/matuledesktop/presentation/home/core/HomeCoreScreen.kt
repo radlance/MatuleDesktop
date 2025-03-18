@@ -34,6 +34,7 @@ import matuledesktop.composeapp.generated.resources.retry
 import matuledesktop.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
+import org.radlance.matuledesktop.presentation.home.catalog.CatalogScreen
 import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
 import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.home.popular.PopularScreen
@@ -107,11 +108,18 @@ internal class HomeCoreScreen(
                     onSuccess = {
                         Column(
                             modifier = Modifier.verticalScroll(verticalScrollState)
-                                .padding(end = 15.dp)
                         ) {
                             CategoriesRow(
                                 categories = it.categories,
-                                onCategoryClick = {},
+                                onCategoryClick = {
+                                    navigator.push(
+                                        CatalogScreen(
+                                            selectedCategoryId = it,
+                                            imageLoader = imageLoader,
+                                            viewModel = viewModel
+                                        )
+                                    )
+                                },
                                 selectedCategoryId = -1
                             )
 
@@ -123,10 +131,13 @@ internal class HomeCoreScreen(
                                 onLikeClick = viewModel::changeFavoriteStatus,
                                 onAddCartClick = viewModel::addProductToCart,
                                 onCardClick = {},
-                                navigateToCart = {},
+                                navigateToCart = {
+
+                                },
                                 navigateToPopular = {
                                     navigator.push(PopularScreen(viewModel, imageLoader))
-                                }
+                                },
+                                modifier = Modifier.padding(end = 15.dp)
                             )
 
                             Spacer(modifier = Modifier.height(20.dp))
