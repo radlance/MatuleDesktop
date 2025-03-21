@@ -1,4 +1,4 @@
-package com.radlance.matule.data.database.remote.entity
+package org.radlance.matuledesktop.data.database.remote.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

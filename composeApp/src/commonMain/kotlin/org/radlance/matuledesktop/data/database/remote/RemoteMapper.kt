@@ -1,18 +1,20 @@
 package org.radlance.matuledesktop.data.database.remote
 
-import org.radlance.matuledesktop.data.database.remote.entity.RemoteCategoryEntity
-import org.radlance.matuledesktop.data.database.remote.entity.RemoteProductEntity
+import org.radlance.matuledesktop.data.database.remote.entity.CategoryEntity
+import org.radlance.matuledesktop.data.database.remote.entity.OriginCountryEntity
+import org.radlance.matuledesktop.data.database.remote.entity.ProductEntity
 import org.radlance.matuledesktop.data.database.remote.entity.UserEntity
 import org.radlance.matuledesktop.domain.auth.User
 import org.radlance.matuledesktop.domain.product.Category
+import org.radlance.matuledesktop.domain.product.OriginCountry
 import org.radlance.matuledesktop.domain.product.Product
 
 abstract class RemoteMapper {
-    protected fun RemoteCategoryEntity.toCategory(): Category {
+    protected fun CategoryEntity.toCategory(): Category {
         return Category(id = id, title = title)
     }
 
-    protected fun RemoteProductEntity.toProduct(
+    protected fun ProductEntity.toProduct(
         isFavorite: Boolean,
         quantityInCart: Int
     ): Product {
@@ -27,6 +29,10 @@ abstract class RemoteMapper {
             categoryId = categoryId,
             isPopular = isPopular
         )
+    }
+
+    protected fun OriginCountryEntity.toOriginCountry(): OriginCountry {
+        return OriginCountry(id = id, name = name)
     }
 
 

@@ -29,5 +29,5 @@
     <string name="popular">Популярное</string>
     <string name="search">Поиск</string>
     <string name="no_favorite_products">Нет избранных товаров</string>
-
+    <string name="origin_country">Страна производства</string>
 </resources>

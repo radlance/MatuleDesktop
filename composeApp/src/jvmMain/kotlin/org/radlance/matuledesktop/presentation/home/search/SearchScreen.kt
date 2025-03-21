@@ -77,45 +77,47 @@ internal class SearchScreen(
             onUnauthorized = {}
         )
 
-
         Column(
             modifier = Modifier.fillMaxSize().padding(top = 15.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                IconButton(
-                    onClick = navigator::pop,
-                    modifier = Modifier.align(Alignment.CenterStart)
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = null
-                    )
-                }
 
-                Text(
-                    text = stringResource(Res.string.search),
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 38.sp,
-                    modifier = Modifier.padding(end = 15.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            SearchField(
-                value = searchFieldValue,
-                onValueChange = { searchFieldValue = it },
-                onSearchClick = {},
-                hint = stringResource(Res.string.search),
-                modifier = Modifier.padding(end = 15.dp)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
 
             loadContentResult.Show(
                 onSuccess = { fetchContent ->
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        IconButton(
+                            onClick = navigator::pop,
+                            modifier = Modifier.align(Alignment.CenterStart)
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                                contentDescription = null
+                            )
+                        }
+
+                        Text(
+                            text = stringResource(Res.string.search),
+                            fontSize = 32.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 38.sp,
+                            modifier = Modifier.padding(end = 15.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    SearchField(
+                        value = searchFieldValue,
+                        onValueChange = { searchFieldValue = it },
+                        onSearchClick = {},
+                        hint = stringResource(Res.string.search),
+                        fetchContent = fetchContent,
+                        modifier = Modifier.padding(end = 15.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
                     val foundedProducts = fetchContent.products.filter {
                         it.title.contains(searchFieldValue, ignoreCase = true)
                     }
