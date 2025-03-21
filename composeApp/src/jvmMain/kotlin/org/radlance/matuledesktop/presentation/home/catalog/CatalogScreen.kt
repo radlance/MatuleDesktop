@@ -41,7 +41,7 @@ import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
 import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.home.common.ProductGrid
 
-class CatalogScreen(
+internal class CatalogScreen(
     private val selectedCategoryId: Int?,
     private val imageLoader: ImageLoader,
     private val viewModel: ProductViewModel

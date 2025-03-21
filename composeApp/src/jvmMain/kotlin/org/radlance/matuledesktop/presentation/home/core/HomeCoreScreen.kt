@@ -38,6 +38,7 @@ import org.radlance.matuledesktop.presentation.home.catalog.CatalogScreen
 import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
 import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.home.popular.PopularScreen
+import org.radlance.matuledesktop.presentation.home.search.SearchScreen
 
 internal class HomeCoreScreen(
     private val imageLoader: ImageLoader,
@@ -94,16 +95,14 @@ internal class HomeCoreScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             HomeSearchBar(
-                onSettingsClick = {},
                 hint = stringResource(Res.string.search),
-                onSearchFieldClick = {},
+                onSearchFieldClick = { navigator.push(SearchScreen(imageLoader, viewModel)) },
                 modifier = Modifier.padding(end = 15.dp)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Box {
-
                 loadContentResult.Show(
                     onSuccess = {
                         Column(
