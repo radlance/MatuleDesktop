@@ -121,18 +121,14 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
             )
         }
 
-        Row(modifier = Modifier.weight(1.5f), verticalAlignment = Alignment.CenterVertically) {
-            Column {
-                IconButton(onClick = onCartClick) {
-                    val addIcon = if (product.quantityInCart == 0) {
-                        Icons.Default.Add
-                    } else {
-                        Icons.Default.ShoppingCart
-                    }
-
-                    Icon(imageVector = addIcon, contentDescription = null)
-                }
+        IconButton(onClick = onCartClick) {
+            val addIcon = if (product.quantityInCart == 0) {
+                Icons.Default.Add
+            } else {
+                Icons.Default.ShoppingCart
             }
+
+            Icon(imageVector = addIcon, contentDescription = null)
         }
 
         IconButton(onClick = onLikeClick) {
@@ -149,8 +145,6 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
             }
         }
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(16.dp))
     }
-
-    Spacer(Modifier.height(4.dp))
 }

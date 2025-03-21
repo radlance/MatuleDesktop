@@ -109,7 +109,7 @@ internal class SearchScreen(
                 onValueChange = { searchFieldValue = it },
                 onSearchClick = {},
                 hint = stringResource(Res.string.search),
-                modifier = Modifier.padding(horizontal = 21.dp)
+                modifier = Modifier.padding(end = 15.dp)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
