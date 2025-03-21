@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,6 +34,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.load_error
+import matuledesktop.composeapp.generated.resources.products_not_found
 import matuledesktop.composeapp.generated.resources.retry
 import matuledesktop.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.stringResource
@@ -50,7 +52,9 @@ internal class SearchScreen(
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
         val addToCartResult by viewModel.inCartResult.collectAsState()
+
         var searchFieldValue by rememberSaveable { mutableStateOf("") }
+        var selectedCountriesIds by remember { mutableStateOf<List<Int>?>(null) }
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -85,6 +89,11 @@ internal class SearchScreen(
 
             loadContentResult.Show(
                 onSuccess = { fetchContent ->
+                    val foundedProducts = fetchContent.products.filter { product ->
+                        product.title.contains(searchFieldValue, ignoreCase = true)
+                                && selectedCountriesIds?.contains(product.originCountryId) ?: true
+                    }
+
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                         IconButton(
                             onClick = navigator::pop,
@@ -113,18 +122,22 @@ internal class SearchScreen(
                         onSearchClick = {},
                         hint = stringResource(Res.string.search),
                         fetchContent = fetchContent,
+                        onCheckOriginCountry = { selectedCountriesIds = it },
                         modifier = Modifier.padding(end = 15.dp)
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    val foundedProducts = fetchContent.products.filter {
-                        it.title.contains(searchFieldValue, ignoreCase = true)
-                    }
                     if (foundedProducts.isEmpty()) {
                         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            val text = if (searchFieldValue.isEmpty()) {
+                                stringResource(Res.string.products_not_found)
+                            } else {
+                                "Товаров по запросу \"$searchFieldValue\" не найдено"
+                            }
+
                             Text(
-                                text = "Товаров по запросу \"$searchFieldValue\" не найдено",
+                                text = text,
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 lineHeight = 20.sp,

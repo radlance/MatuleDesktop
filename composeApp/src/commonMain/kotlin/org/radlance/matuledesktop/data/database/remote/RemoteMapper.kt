@@ -27,7 +27,8 @@ abstract class RemoteMapper {
             isFavorite = isFavorite,
             quantityInCart = quantityInCart,
             categoryId = categoryId,
-            isPopular = isPopular
+            isPopular = isPopular,
+            originCountryId = originCountryId
         )
     }
 

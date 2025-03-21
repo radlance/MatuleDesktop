@@ -6,15 +6,22 @@ import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 interface SearchState {
 
     @Composable
-    fun Show(fetchContent: CatalogFetchContent)
+    fun Show(fetchContent: CatalogFetchContent, onCheckOriginCountry: (List<Int>) -> Unit)
 
     fun inverse(): SearchState
 
     object Expanded : SearchState {
 
         @Composable
-        override fun Show(fetchContent: CatalogFetchContent) = SearchSettingsPlane(fetchContent)
-
+        override fun Show(
+            fetchContent: CatalogFetchContent,
+            onCheckOriginCountry: (List<Int>) -> Unit
+        ) {
+            SearchSettingsPlane(
+                fetchContent = fetchContent,
+                onCheckOriginCountry = onCheckOriginCountry
+            )
+        }
 
         override fun inverse(): SearchState = Collapsed
     }
@@ -22,7 +29,10 @@ interface SearchState {
     object Collapsed : SearchState {
 
         @Composable
-        override fun Show(fetchContent: CatalogFetchContent) = Unit
+        override fun Show(
+            fetchContent: CatalogFetchContent,
+            onCheckOriginCountry: (List<Int>) -> Unit
+        ) = Unit
 
         override fun inverse(): SearchState = Expanded
     }

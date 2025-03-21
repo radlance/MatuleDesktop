@@ -9,5 +9,6 @@ data class Product(
     val isFavorite: Boolean,
     val quantityInCart: Int,
     val isPopular: Boolean,
+    val originCountryId: Int,
     val id: Int = 0
 )
