@@ -9,7 +9,8 @@ interface SearchState {
     fun Show(
         fetchContent: CatalogFetchContent,
         onCheckOriginCountry: (List<Int>) -> Unit,
-        onCheckBrand: (List<Int>) -> Unit
+        onCheckBrand: (List<Int>) -> Unit,
+        onCheckSize: (List<Int>) -> Unit
     )
 
     fun inverse(): SearchState
@@ -20,12 +21,14 @@ interface SearchState {
         override fun Show(
             fetchContent: CatalogFetchContent,
             onCheckOriginCountry: (List<Int>) -> Unit,
-            onCheckBrand: (List<Int>) -> Unit
+            onCheckBrand: (List<Int>) -> Unit,
+            onCheckSize: (List<Int>) -> Unit
         ) {
             SearchSettingsPlane(
                 fetchContent = fetchContent,
                 onCheckOriginCountry = onCheckOriginCountry,
-                onCheckBrand = onCheckBrand
+                onCheckBrand = onCheckBrand,
+                onCheckSize = onCheckSize
             )
         }
 
@@ -38,7 +41,8 @@ interface SearchState {
         override fun Show(
             fetchContent: CatalogFetchContent,
             onCheckOriginCountry: (List<Int>) -> Unit,
-            onCheckBrand: (List<Int>) -> Unit
+            onCheckBrand: (List<Int>) -> Unit,
+            onCheckSize: (List<Int>) -> Unit
         ) = Unit
 
         override fun inverse(): SearchState = Expanded

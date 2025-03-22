@@ -40,6 +40,7 @@ class RemoteProductRepository(
                         )
                     },
                     originCountries = response.originCountries.map { it.toOriginCountry() },
+                    sizes = response.sizes.map { it.toSize() },
                     brands = response.brands.map { it.toBrand() }
                 )
             )

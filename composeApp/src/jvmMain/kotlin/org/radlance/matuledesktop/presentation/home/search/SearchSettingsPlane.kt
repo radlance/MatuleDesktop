@@ -10,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.brand
 import matuledesktop.composeapp.generated.resources.origin_country
+import matuledesktop.composeapp.generated.resources.size
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 
@@ -18,6 +19,7 @@ fun SearchSettingsPlane(
     fetchContent: CatalogFetchContent,
     onCheckOriginCountry: (List<Int>) -> Unit,
     onCheckBrand: (List<Int>) -> Unit,
+    onCheckSize: (List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -39,6 +41,14 @@ fun SearchSettingsPlane(
             itemLabel = { it.name },
             itemId = { it.id },
             onSelectionChanged = onCheckBrand
+        )
+
+        CheckboxGroup(
+            groupLabel = stringResource(Res.string.size),
+            items = fetchContent.sizes,
+            itemLabel = { it.number.toString() },
+            itemId = { it.number },
+            onSelectionChanged = onCheckSize
         )
     }
 }

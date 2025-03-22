@@ -13,5 +13,6 @@ data class ProductEntity(
     @SerialName("category_id") val categoryId: Int,
     @SerialName("is_popular") val isPopular: Boolean,
     @SerialName("origin_country_id") val originCountryId: Int,
-    @SerialName("brand_id") val brandId: Int
+    @SerialName("brand_id") val brandId: Int,
+    val sizes: List<ProductSizeEntity>
 )

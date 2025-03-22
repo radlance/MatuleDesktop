@@ -54,8 +54,9 @@ internal class SearchScreen(
         val addToCartResult by viewModel.inCartResult.collectAsState()
 
         var searchFieldValue by rememberSaveable { mutableStateOf("") }
-        var selectedCountriesIds by remember { mutableStateOf<List<Int>?>(null) }
+        var selectedCountryIds by remember { mutableStateOf<List<Int>?>(null) }
         var selectedBrandIds by remember { mutableStateOf<List<Int>?>(null) }
+        var selectedSizes by remember { mutableStateOf<List<Int>?>(null) }
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -92,8 +93,13 @@ internal class SearchScreen(
                 onSuccess = { fetchContent ->
                     val foundedProducts = fetchContent.products.filter { product ->
                         product.title.contains(searchFieldValue, ignoreCase = true)
-                                && selectedCountriesIds?.contains(product.originCountryId) ?: true
+                                && selectedCountryIds?.contains(product.originCountryId) ?: true
                                 && selectedBrandIds?.contains(product.brandId) ?: true
+                                && selectedSizes?.let { sizes ->
+                            product.sizes.any { productSize ->
+                                sizes.contains(productSize.size) && productSize.quantity != 0
+                            }
+                        } ?: true
                     }
 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -121,11 +127,12 @@ internal class SearchScreen(
                     SearchField(
                         value = searchFieldValue,
                         onValueChange = { searchFieldValue = it },
-                        onSearchClick = {},
+                        onSearchClick = { searchFieldValue = it },
                         hint = stringResource(Res.string.search),
                         fetchContent = fetchContent,
-                        onCheckOriginCountry = { selectedCountriesIds = it },
+                        onCheckOriginCountry = { selectedCountryIds = it },
                         onCheckBrand = { selectedBrandIds = it },
+                        onCheckSize = { selectedSizes = it },
                         modifier = Modifier.padding(end = 15.dp)
                     )
 

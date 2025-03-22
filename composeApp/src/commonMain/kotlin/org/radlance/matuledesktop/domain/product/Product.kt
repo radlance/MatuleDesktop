@@ -11,5 +11,6 @@ data class Product(
     val isPopular: Boolean,
     val originCountryId: Int,
     val brandId: Int,
+    val sizes: List<ProductSize>,
     val id: Int = 0
 )
