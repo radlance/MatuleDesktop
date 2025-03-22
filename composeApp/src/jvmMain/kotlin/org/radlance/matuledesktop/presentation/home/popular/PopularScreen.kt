@@ -33,8 +33,9 @@ import matuledesktop.composeapp.generated.resources.popular
 import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
-import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
-import org.radlance.matuledesktop.presentation.home.common.ProductGrid
+import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
+import org.radlance.matuledesktop.presentation.common.ProductGrid
+import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 
 internal class PopularScreen(
     private val viewModel: ProductViewModel,
@@ -111,7 +112,15 @@ internal class PopularScreen(
                         products = popularProducts,
                         viewModel = viewModel,
                         navigateToCart = {},
-                        navigateToDetails = {}
+                        navigateToDetails = {
+                            navigator.push(
+                                ProductDetailsScreen(
+                                    selectedProduct = it,
+                                    imageLoader = imageLoader,
+                                    viewModel = viewModel
+                                )
+                            )
+                        }
                     )
                 },
 

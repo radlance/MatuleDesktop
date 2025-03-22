@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.home.common
+package org.radlance.matuledesktop.presentation.common
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement
@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import coil3.ImageLoader
 import org.radlance.matuledesktop.domain.product.Product
-import org.radlance.matuledesktop.presentation.common.ProductViewModel
-import org.radlance.matuledesktop.presentation.home.core.ProductCard
 
 @Composable
 fun ProductGrid(
@@ -26,7 +24,7 @@ fun ProductGrid(
     products: List<Product>,
     viewModel: ProductViewModel,
     navigateToCart: () -> Unit,
-    navigateToDetails: (Int) -> Unit,
+    navigateToDetails: (Product) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val lazyGridState = rememberLazyGridState()

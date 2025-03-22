@@ -38,8 +38,9 @@ import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
-import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
-import org.radlance.matuledesktop.presentation.home.common.ProductGrid
+import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
+import org.radlance.matuledesktop.presentation.common.ProductGrid
+import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 
 internal class CatalogScreen(
     private val selectedCategoryId: Int?,
@@ -130,7 +131,15 @@ internal class CatalogScreen(
                         products = product,
                         viewModel = viewModel,
                         imageLoader = imageLoader,
-                        navigateToDetails = {},
+                        navigateToDetails = {
+                            navigator.push(
+                                ProductDetailsScreen(
+                                    selectedProduct = it,
+                                    imageLoader = imageLoader,
+                                    viewModel = viewModel
+                                )
+                            )
+                        },
                         navigateToCart = {}
                     )
                 },

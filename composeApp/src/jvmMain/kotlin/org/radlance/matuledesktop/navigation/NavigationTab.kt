@@ -51,7 +51,7 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            FavoriteScreen(imageLoader, viewModel).Content()
+            FavoriteScreen(imageLoader, viewModel)
         }
     }
 }

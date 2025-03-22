@@ -36,7 +36,8 @@ abstract class RemoteMapper {
             isPopular = isPopular,
             originCountryId = originCountryId,
             sizes = sizes.map { it.toProductSize() },
-            brandId = brandId
+            brandId = brandId,
+            modelName = modelName
         )
     }
 

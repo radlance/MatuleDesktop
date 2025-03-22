@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.home.common
+package org.radlance.matuledesktop.presentation.common
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

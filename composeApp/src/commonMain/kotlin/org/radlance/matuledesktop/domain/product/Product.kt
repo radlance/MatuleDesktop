@@ -12,5 +12,6 @@ data class Product(
     val originCountryId: Int,
     val brandId: Int,
     val sizes: List<ProductSize>,
+    val modelName: String,
     val id: Int = 0
 )

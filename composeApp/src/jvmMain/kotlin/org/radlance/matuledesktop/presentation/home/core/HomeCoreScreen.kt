@@ -33,10 +33,13 @@ import matuledesktop.composeapp.generated.resources.load_error
 import matuledesktop.composeapp.generated.resources.retry
 import matuledesktop.composeapp.generated.resources.search
 import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.home.catalog.CatalogScreen
 import org.radlance.matuledesktop.presentation.home.common.CategoriesRow
-import org.radlance.matuledesktop.presentation.home.common.ChangeProductStatus
+import org.radlance.matuledesktop.presentation.home.common.HomeSearchBar
+import org.radlance.matuledesktop.presentation.home.common.PopularRow
+import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 import org.radlance.matuledesktop.presentation.home.popular.PopularScreen
 import org.radlance.matuledesktop.presentation.home.search.SearchScreen
 
@@ -129,7 +132,15 @@ internal class HomeCoreScreen(
                                 products = it.products,
                                 onLikeClick = viewModel::changeFavoriteStatus,
                                 onAddCartClick = viewModel::addProductToCart,
-                                onCardClick = {},
+                                onCardClick = {
+                                    navigator.push(
+                                        ProductDetailsScreen(
+                                            selectedProduct = it,
+                                            imageLoader = imageLoader,
+                                            viewModel = viewModel
+                                        )
+                                    )
+                                },
                                 navigateToCart = {
 
                                 },

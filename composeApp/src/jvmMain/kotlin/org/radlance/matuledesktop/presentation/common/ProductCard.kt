@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.home.core
+package org.radlance.matuledesktop.presentation.common
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
@@ -49,10 +49,10 @@ internal fun ProductCard(
     product: Product,
     onLikeClick: () -> Unit,
     onCartClick: () -> Unit,
-    onCardClick: (Int) -> Unit,
+    onCardClick: (Product) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(modifier = modifier.clickable { onCardClick(product.id) }) {
+    Card(modifier = modifier.clickable { onCardClick(product) }) {
         Column(modifier = Modifier.fillMaxWidth()) {
             ProductCardImage(
                 imageLoader = imageLoader,

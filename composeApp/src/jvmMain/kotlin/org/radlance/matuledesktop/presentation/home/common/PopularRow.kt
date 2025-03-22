@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.presentation.home.core
+package org.radlance.matuledesktop.presentation.home.common
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +20,7 @@ import matuledesktop.composeapp.generated.resources.all
 import matuledesktop.composeapp.generated.resources.popular
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.domain.product.Product
+import org.radlance.matuledesktop.presentation.common.ProductCard
 
 @Composable
 internal fun PopularRow(
@@ -27,7 +28,7 @@ internal fun PopularRow(
     products: List<Product>,
     onLikeClick: (productId: Int) -> Unit,
     onAddCartClick: (productId: Int) -> Unit,
-    onCardClick: (Int) -> Unit,
+    onCardClick: (Product) -> Unit,
     navigateToCart: () -> Unit,
     navigateToPopular: () -> Unit,
     modifier: Modifier = Modifier
