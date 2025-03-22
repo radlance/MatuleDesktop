@@ -52,6 +52,7 @@ fun SearchField(
     onSearchClick: (String) -> Unit,
     fetchContent: CatalogFetchContent,
     onCheckOriginCountry: (List<Int>) -> Unit,
+    onCheckBrand: (List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var searchState by remember { mutableStateOf<SearchState>(SearchState.Collapsed) }
@@ -133,7 +134,8 @@ fun SearchField(
 
         searchState.Show(
             fetchContent = fetchContent,
-            onCheckOriginCountry = onCheckOriginCountry
+            onCheckOriginCountry = onCheckOriginCountry,
+            onCheckBrand =  onCheckBrand
         )
     }
 }

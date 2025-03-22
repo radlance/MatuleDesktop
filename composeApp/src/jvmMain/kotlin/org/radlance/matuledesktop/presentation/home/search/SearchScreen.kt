@@ -55,6 +55,7 @@ internal class SearchScreen(
 
         var searchFieldValue by rememberSaveable { mutableStateOf("") }
         var selectedCountriesIds by remember { mutableStateOf<List<Int>?>(null) }
+        var selectedBrandIds by remember { mutableStateOf<List<Int>?>(null) }
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -92,6 +93,7 @@ internal class SearchScreen(
                     val foundedProducts = fetchContent.products.filter { product ->
                         product.title.contains(searchFieldValue, ignoreCase = true)
                                 && selectedCountriesIds?.contains(product.originCountryId) ?: true
+                                && selectedBrandIds?.contains(product.brandId) ?: true
                     }
 
                     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -123,6 +125,7 @@ internal class SearchScreen(
                         hint = stringResource(Res.string.search),
                         fetchContent = fetchContent,
                         onCheckOriginCountry = { selectedCountriesIds = it },
+                        onCheckBrand = { selectedBrandIds = it },
                         modifier = Modifier.padding(end = 15.dp)
                     )
 

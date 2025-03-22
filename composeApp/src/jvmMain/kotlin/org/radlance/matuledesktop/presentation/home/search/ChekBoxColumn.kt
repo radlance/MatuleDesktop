@@ -4,6 +4,7 @@ import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -26,6 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun <T> CheckboxGroup(
+    groupLabel: String,
     items: List<T>,
     itemLabel: (T) -> String,
     itemId: (T) -> Int,
@@ -44,6 +46,9 @@ fun <T> CheckboxGroup(
     }
 
     Column(modifier = modifier) {
+        Text(text = groupLabel)
+        Spacer(Modifier.height(4.dp))
+
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(150.dp)) {
             Text(text = stringResource(Res.string.all), modifier = Modifier.weight(1f))
             TriStateCheckbox(

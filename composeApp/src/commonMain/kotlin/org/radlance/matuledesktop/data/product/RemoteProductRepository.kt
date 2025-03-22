@@ -39,11 +39,11 @@ class RemoteProductRepository(
                                 ?: 0
                         )
                     },
-                    originCountries = response.originCountries.map { it.toOriginCountry() }
+                    originCountries = response.originCountries.map { it.toOriginCountry() },
+                    brands = response.brands.map { it.toBrand() }
                 )
             )
         } catch (e: Exception) {
-            println(e.message)
             FetchResult.Error(null)
         }
     }

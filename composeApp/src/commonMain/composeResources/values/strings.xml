@@ -31,4 +31,5 @@
     <string name="no_favorite_products">Нет избранных товаров</string>
     <string name="origin_country">Страна производства</string>
     <string name="products_not_found">Товаров не найдено</string>
+    <string name="brand">Бренд</string>
 </resources>

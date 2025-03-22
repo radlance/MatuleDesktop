@@ -10,5 +10,6 @@ data class Product(
     val quantityInCart: Int,
     val isPopular: Boolean,
     val originCountryId: Int,
+    val brandId: Int,
     val id: Int = 0
 )

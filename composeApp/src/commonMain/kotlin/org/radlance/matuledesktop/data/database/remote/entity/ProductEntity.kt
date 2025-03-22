@@ -12,5 +12,6 @@ data class ProductEntity(
     @SerialName("image_url") val imageUrl: String,
     @SerialName("category_id") val categoryId: Int,
     @SerialName("is_popular") val isPopular: Boolean,
-    @SerialName("origin_country_id") val originCountryId: Int
+    @SerialName("origin_country_id") val originCountryId: Int,
+    @SerialName("brand_id") val brandId: Int
 )
