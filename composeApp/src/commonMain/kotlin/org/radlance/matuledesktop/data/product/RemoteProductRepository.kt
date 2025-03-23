@@ -29,21 +29,24 @@ class RemoteProductRepository(
 
             val response = Json.decodeFromString<RpcCatalogResponse>(stringResponse)
 
-            FetchResult.Success(
-                CatalogFetchContent(
-                    categories = response.categories.map { it.toCategory() },
-                    products = response.products.map { product ->
-                        product.toProduct(
-                            isFavorite = response.favoriteProducts.containsKey(product.id.toString()),
-                            quantityInCart = response.cartProducts[product.id.toString()]?.quantity
-                                ?: 0
-                        )
-                    },
-                    originCountries = response.originCountries.map { it.toOriginCountry() },
-                    sizes = response.sizes.map { it.toSize() },
-                    brands = response.brands.map { it.toBrand() }
+            with(response) {
+                FetchResult.Success(
+                    CatalogFetchContent(
+                        categories = categories.map { it.toCategory() },
+                        products = products.map { product ->
+                            product.toProduct(
+                                isFavorite = favoriteProducts.containsKey(product.id.toString()),
+                                quantityInCart = cartProducts[product.id.toString()]?.quantity
+                                    ?: 0
+                            )
+                        },
+                        originCountries = originCountries.map { it.toOriginCountry() },
+                        sizes = sizes.map { it.toSize() },
+                        brands = brands.map { it.toBrand() },
+                        claspTypes = claspTypes.map { it.toClaspType() }
+                    )
                 )
-            )
+            }
         } catch (e: Exception) {
             FetchResult.Error(null)
         }

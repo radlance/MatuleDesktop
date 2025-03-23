@@ -15,5 +15,6 @@ data class ProductEntity(
     @SerialName("origin_country_id") val originCountryId: Int,
     @SerialName("brand_id") val brandId: Int,
     @SerialName("model_name") val modelName: String,
+    @SerialName("clasp_type_id") val claspTypeId: Int,
     val sizes: List<ProductSizeEntity>
 )

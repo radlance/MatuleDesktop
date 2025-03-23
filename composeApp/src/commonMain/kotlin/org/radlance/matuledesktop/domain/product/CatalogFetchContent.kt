@@ -5,5 +5,6 @@ data class CatalogFetchContent(
     val originCountries: List<OriginCountry>,
     val brands: List<Brand>,
     val sizes: List<Size>,
+    val claspTypes: List<ClaspType>,
     val products: List<Product>
 )

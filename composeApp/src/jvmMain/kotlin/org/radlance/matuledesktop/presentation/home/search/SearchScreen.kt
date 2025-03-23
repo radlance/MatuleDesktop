@@ -58,6 +58,7 @@ internal class SearchScreen(
         var selectedCountryIds by remember { mutableStateOf<List<Int>?>(null) }
         var selectedBrandIds by remember { mutableStateOf<List<Int>?>(null) }
         var selectedSizes by remember { mutableStateOf<List<Int>?>(null) }
+        var selectedClaspTypesIds by remember { mutableStateOf<List<Int>?>(null) }
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -96,6 +97,7 @@ internal class SearchScreen(
                         product.title.contains(searchFieldValue, ignoreCase = true)
                                 && selectedCountryIds?.contains(product.originCountryId) ?: true
                                 && selectedBrandIds?.contains(product.brandId) ?: true
+                                && selectedClaspTypesIds?.contains(product.claspTypeId) ?: true
                                 && selectedSizes?.let { sizes ->
                             product.sizes.any { productSize ->
                                 sizes.contains(productSize.size) && productSize.quantity != 0
@@ -132,6 +134,7 @@ internal class SearchScreen(
                         hint = stringResource(Res.string.search),
                         fetchContent = fetchContent,
                         onCheckOriginCountry = { selectedCountryIds = it },
+                        onCheckClaspType = { selectedClaspTypesIds = it },
                         onCheckBrand = { selectedBrandIds = it },
                         onCheckSize = { selectedSizes = it },
                         modifier = Modifier.padding(end = 15.dp)
@@ -166,6 +169,7 @@ internal class SearchScreen(
                                     ProductDetailsScreen(
                                         selectedProduct = it,
                                         imageLoader = imageLoader,
+                                        fetchContent = fetchContent,
                                         viewModel = viewModel
                                     )
                                 )

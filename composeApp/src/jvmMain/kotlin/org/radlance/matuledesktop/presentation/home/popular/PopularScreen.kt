@@ -117,6 +117,7 @@ internal class PopularScreen(
                                 ProductDetailsScreen(
                                     selectedProduct = it,
                                     imageLoader = imageLoader,
+                                    fetchContent = fetchContent,
                                     viewModel = viewModel
                                 )
                             )

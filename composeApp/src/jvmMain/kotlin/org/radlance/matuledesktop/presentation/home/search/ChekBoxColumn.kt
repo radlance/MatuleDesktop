@@ -49,7 +49,7 @@ fun <T> CheckboxGroup(
         Text(text = groupLabel)
         Spacer(Modifier.height(4.dp))
 
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(150.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(180.dp)) {
             Text(text = stringResource(Res.string.all), modifier = Modifier.weight(1f))
             TriStateCheckbox(
                 state = parentState,
@@ -64,7 +64,7 @@ fun <T> CheckboxGroup(
         Box(modifier = Modifier.height(150.dp)) {
             Column(modifier = Modifier.fillMaxHeight().verticalScroll(scrollState)) {
                 items.forEachIndexed { index, item ->
-                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(150.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.width(180.dp)) {
                         Text(text = itemLabel(item), modifier = Modifier.weight(1f))
                         Checkbox(
                             checked = childCheckedStates[index],

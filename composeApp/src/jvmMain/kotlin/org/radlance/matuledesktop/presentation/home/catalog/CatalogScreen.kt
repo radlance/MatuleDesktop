@@ -136,6 +136,7 @@ internal class CatalogScreen(
                                 ProductDetailsScreen(
                                     selectedProduct = it,
                                     imageLoader = imageLoader,
+                                    fetchContent = fetchContent,
                                     viewModel = viewModel
                                 )
                             )

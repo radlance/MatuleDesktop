@@ -9,6 +9,7 @@ data class RpcCatalogResponse(
     val originCountries: List<OriginCountryEntity>,
     val brands: List<BrandEntity>,
     val sizes: List<SizeEntity>,
+    val claspTypes: List<ClaspTypeEntity>,
     val favoriteProducts: Map<String, FavoriteEntity>,
     val cartProducts: Map<String, CartEntity>
 )

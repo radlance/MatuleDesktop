@@ -106,6 +106,7 @@ internal class FavoriteCoreScreen(
                                     ProductDetailsScreen(
                                         selectedProduct = it,
                                         imageLoader = imageLoader,
+                                        fetchContent = fetchContent,
                                         viewModel = viewModel
                                     )
                                 )

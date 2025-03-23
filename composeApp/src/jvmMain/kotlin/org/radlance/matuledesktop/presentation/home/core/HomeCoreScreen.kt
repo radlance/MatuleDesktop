@@ -107,12 +107,12 @@ internal class HomeCoreScreen(
 
             Box {
                 loadContentResult.Show(
-                    onSuccess = {
+                    onSuccess = { fetchContent ->
                         Column(
                             modifier = Modifier.verticalScroll(verticalScrollState)
                         ) {
                             CategoriesRow(
-                                categories = it.categories,
+                                categories = fetchContent.categories,
                                 onCategoryClick = {
                                     navigator.push(
                                         CatalogScreen(
@@ -129,7 +129,7 @@ internal class HomeCoreScreen(
 
                             PopularRow(
                                 imageLoader = imageLoader,
-                                products = it.products,
+                                products = fetchContent.products,
                                 onLikeClick = viewModel::changeFavoriteStatus,
                                 onAddCartClick = viewModel::addProductToCart,
                                 onCardClick = {
@@ -137,6 +137,7 @@ internal class HomeCoreScreen(
                                         ProductDetailsScreen(
                                             selectedProduct = it,
                                             imageLoader = imageLoader,
+                                            fetchContent = fetchContent,
                                             viewModel = viewModel
                                         )
                                     )

@@ -2,14 +2,14 @@ package org.radlance.matuledesktop.data.database.remote
 
 import org.radlance.matuledesktop.data.database.remote.entity.BrandEntity
 import org.radlance.matuledesktop.data.database.remote.entity.CategoryEntity
+import org.radlance.matuledesktop.data.database.remote.entity.ClaspTypeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.OriginCountryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductSizeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.SizeEntity
-import org.radlance.matuledesktop.data.database.remote.entity.UserEntity
-import org.radlance.matuledesktop.domain.auth.User
 import org.radlance.matuledesktop.domain.product.Brand
 import org.radlance.matuledesktop.domain.product.Category
+import org.radlance.matuledesktop.domain.product.ClaspType
 import org.radlance.matuledesktop.domain.product.OriginCountry
 import org.radlance.matuledesktop.domain.product.Product
 import org.radlance.matuledesktop.domain.product.ProductSize
@@ -37,6 +37,7 @@ abstract class RemoteMapper {
             originCountryId = originCountryId,
             sizes = sizes.map { it.toProductSize() },
             brandId = brandId,
+            claspTypeId = claspTypeId,
             modelName = modelName
         )
     }
@@ -57,8 +58,7 @@ abstract class RemoteMapper {
         return Brand(id = id, name = name)
     }
 
-
-    protected fun UserEntity.toUser(): User {
-        return User(firstName = name, imageUrl = imageUrl)
+    protected fun ClaspTypeEntity.toClaspType(): ClaspType {
+        return ClaspType(id = id, name = name)
     }
 }
