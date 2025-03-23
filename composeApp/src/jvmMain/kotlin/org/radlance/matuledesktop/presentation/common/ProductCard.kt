@@ -70,7 +70,7 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
     Row(verticalAlignment = Alignment.CenterVertically) {
         Column(modifier = Modifier.weight(4f)) {
             Text(
-                text = " ${numberFormat.format(product.price)} ₽",
+                text = "${numberFormat.format(product.price)} ₽",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 20.sp,

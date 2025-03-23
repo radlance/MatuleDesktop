@@ -34,4 +34,6 @@
     <string name="brand">Бренд</string>
     <string name="size">Размер</string>
     <string name="clasp_type">Застежка</string>
+    <string name="popular_product">Популярный товар!</string>
+    <string name="moisture_protection_type">Защита от влаги</string>
 </resources>

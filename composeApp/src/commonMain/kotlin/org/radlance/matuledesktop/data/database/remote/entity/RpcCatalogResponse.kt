@@ -10,6 +10,7 @@ data class RpcCatalogResponse(
     val brands: List<BrandEntity>,
     val sizes: List<SizeEntity>,
     val claspTypes: List<ClaspTypeEntity>,
+    val moistureProtectionTypes: List<MoistureProtectionTypeEntity>,
     val favoriteProducts: Map<String, FavoriteEntity>,
     val cartProducts: Map<String, CartEntity>
 )

@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.brand
 import matuledesktop.composeapp.generated.resources.clasp_type
+import matuledesktop.composeapp.generated.resources.moisture_protection_type
 import matuledesktop.composeapp.generated.resources.origin_country
 import matuledesktop.composeapp.generated.resources.size
 import org.jetbrains.compose.resources.stringResource
@@ -28,6 +29,7 @@ fun SearchSettingsPlane(
     onCheckBrand: (List<Int>) -> Unit,
     onCheckSize: (List<Int>) -> Unit,
     onCheckClaspType: (List<Int>) -> Unit,
+    onCheckMoistureProtectionType: (List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -68,6 +70,14 @@ fun SearchSettingsPlane(
                 itemLabel = { it.name },
                 itemId = { it.id },
                 onSelectionChanged = onCheckClaspType
+            )
+
+            CheckboxGroup(
+                groupLabel = stringResource(Res.string.moisture_protection_type),
+                items = fetchContent.moistureProtectionTypes,
+                itemLabel = { it.name },
+                itemId = { it.id },
+                onSelectionChanged = onCheckMoistureProtectionType
             )
         }
 

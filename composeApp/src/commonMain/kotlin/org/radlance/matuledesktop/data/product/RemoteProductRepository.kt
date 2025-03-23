@@ -43,7 +43,8 @@ class RemoteProductRepository(
                         originCountries = originCountries.map { it.toOriginCountry() },
                         sizes = sizes.map { it.toSize() },
                         brands = brands.map { it.toBrand() },
-                        claspTypes = claspTypes.map { it.toClaspType() }
+                        claspTypes = claspTypes.map { it.toClaspType() },
+                        moistureProtectionTypes = moistureProtectionTypes.map { it.toMoistureProtectionType() }
                     )
                 )
             }

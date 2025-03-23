@@ -59,6 +59,7 @@ internal class SearchScreen(
         var selectedBrandIds by remember { mutableStateOf<List<Int>?>(null) }
         var selectedSizes by remember { mutableStateOf<List<Int>?>(null) }
         var selectedClaspTypesIds by remember { mutableStateOf<List<Int>?>(null) }
+        var selectedMoistureProtectionTypesIds by remember { mutableStateOf<List<Int>?>(null) }
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -98,6 +99,7 @@ internal class SearchScreen(
                                 && selectedCountryIds?.contains(product.originCountryId) ?: true
                                 && selectedBrandIds?.contains(product.brandId) ?: true
                                 && selectedClaspTypesIds?.contains(product.claspTypeId) ?: true
+                                && selectedMoistureProtectionTypesIds?.contains(product.moistureProtectionTypeId) ?: true
                                 && selectedSizes?.let { sizes ->
                             product.sizes.any { productSize ->
                                 sizes.contains(productSize.size) && productSize.quantity != 0
@@ -137,6 +139,7 @@ internal class SearchScreen(
                         onCheckClaspType = { selectedClaspTypesIds = it },
                         onCheckBrand = { selectedBrandIds = it },
                         onCheckSize = { selectedSizes = it },
+                        onCheckMoistureProtectionType = { selectedMoistureProtectionTypesIds = it },
                         modifier = Modifier.padding(end = 15.dp)
                     )
 

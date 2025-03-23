@@ -14,5 +14,6 @@ data class Product(
     val sizes: List<ProductSize>,
     val modelName: String,
     val claspTypeId: Int,
+    val moistureProtectionTypeId: Int,
     val id: Int = 0
 )
