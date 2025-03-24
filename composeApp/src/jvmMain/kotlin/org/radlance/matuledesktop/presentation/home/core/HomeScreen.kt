@@ -8,7 +8,7 @@ import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
 
 @Composable
-fun HomeScreen(
+internal fun HomeScreen(
     imageLoader: ImageLoader,
     viewModel: ProductViewModel
 ) = Navigator(HomeCoreScreen(imageLoader, viewModel)) { navigator ->

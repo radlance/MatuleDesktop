@@ -3,7 +3,7 @@ package org.radlance.matuledesktop.presentation.home.search
 import androidx.compose.runtime.Composable
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 
-interface SearchState {
+internal interface SearchState {
 
     @Composable
     fun Show(

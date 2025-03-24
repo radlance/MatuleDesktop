@@ -7,7 +7,7 @@ import coil3.ImageLoader
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
 @Composable
-fun FavoriteScreen(
+internal fun FavoriteScreen(
     imageLoader: ImageLoader,
     viewModel: ProductViewModel
 ) = Navigator(FavoriteCoreScreen(imageLoader, viewModel)) { navigator ->

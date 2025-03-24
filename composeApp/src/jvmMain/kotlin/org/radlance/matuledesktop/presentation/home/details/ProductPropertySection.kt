@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProductPropertySection(
+internal fun ProductPropertySection(
     property: String,
     value: String,
     modifier: Modifier = Modifier

@@ -19,7 +19,7 @@ import coil3.ImageLoader
 import org.radlance.matuledesktop.domain.product.Product
 
 @Composable
-fun ProductGrid(
+internal fun ProductGrid(
     imageLoader: ImageLoader,
     products: List<Product>,
     viewModel: ProductViewModel,

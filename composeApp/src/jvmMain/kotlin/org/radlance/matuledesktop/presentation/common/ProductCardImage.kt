@@ -15,7 +15,7 @@ import coil3.request.ImageRequest
 import coil3.size.Size
 
 @Composable
-fun ProductCardImage(
+internal fun ProductCardImage(
     imageLoader: ImageLoader,
     imageUrl: String,
     modifier: Modifier = Modifier

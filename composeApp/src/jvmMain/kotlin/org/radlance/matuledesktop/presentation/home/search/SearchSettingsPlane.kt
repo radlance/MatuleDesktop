@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 
 @Composable
-fun SearchSettingsPlane(
+internal fun SearchSettingsPlane(
     fetchContent: CatalogFetchContent,
     onCheckOriginCountry: (List<Int>) -> Unit,
     onCheckBrand: (List<Int>) -> Unit,

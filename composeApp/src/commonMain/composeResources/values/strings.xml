@@ -37,4 +37,7 @@
     <string name="popular_product">Популярный товар!</string>
     <string name="moisture_protection_type">Защита от влаги</string>
     <string name="color">Цвет</string>
+    <string name="choose_size">Выберите размер</string>
+    <string name="add_to_cart">Добавить в корзину</string>
+    <string name="add_to_favorite">Добавить в избранное</string>
 </resources>

@@ -45,7 +45,7 @@ import org.jetbrains.compose.resources.vectorResource
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 
 @Composable
-fun SearchField(
+internal fun SearchField(
     value: String,
     hint: String,
     onValueChange: (String) -> Unit,

@@ -34,7 +34,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.domain.product.ProductColor
 
 @Composable
-fun <T> CheckboxGroup(
+internal fun <T> CheckboxGroup(
     groupLabel: String,
     items: List<T>,
     itemLabel: (T) -> String,

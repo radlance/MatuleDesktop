@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -56,11 +57,11 @@ internal fun CategoriesRow(
             modifier = Modifier.fillMaxWidth()
         ) {
             items(items = allCategories, key = { category -> category.id }) { categoryItem ->
-                CategoryItem(
+                ItemChoose(
                     categoryTitle = categoryItem.title,
                     selected = categoryItem.id == selectedCategoryId,
                     modifier = Modifier
-                        .weight(1f)
+                        .width(108.dp)
                         .clickable {
                             val selectedCategory = if (categoryItem != allCategory) {
                                 categoryItem.id

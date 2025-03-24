@@ -22,7 +22,7 @@ fun HomeNavigationRail(
 ) {
     val tabNavigator = LocalTabNavigator.current
 
-    NavigationRail(modifier = modifier) {
+    NavigationRail(modifier = modifier.padding(top = 5.dp)) {
         railTabs.forEach { tab ->
 
             TooltipArea(
