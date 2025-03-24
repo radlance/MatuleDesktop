@@ -13,6 +13,7 @@ interface SearchState {
         onCheckSize: (List<Int>) -> Unit,
         onCheckClaspType: (List<Int>) -> Unit,
         onCheckMoistureProtectionType: (List<Int>) -> Unit,
+        onCheckColor: (List<Int>) -> Unit,
     )
 
     fun inverse(): SearchState
@@ -26,7 +27,8 @@ interface SearchState {
             onCheckBrand: (List<Int>) -> Unit,
             onCheckSize: (List<Int>) -> Unit,
             onCheckClaspType: (List<Int>) -> Unit,
-            onCheckMoistureProtectionType: (List<Int>) -> Unit
+            onCheckMoistureProtectionType: (List<Int>) -> Unit,
+            onCheckColor: (List<Int>) -> Unit
         ) {
             SearchSettingsPlane(
                 fetchContent = fetchContent,
@@ -34,7 +36,8 @@ interface SearchState {
                 onCheckBrand = onCheckBrand,
                 onCheckSize = onCheckSize,
                 onCheckClaspType = onCheckClaspType,
-                onCheckMoistureProtectionType = onCheckMoistureProtectionType
+                onCheckMoistureProtectionType = onCheckMoistureProtectionType,
+                onCheckColor = onCheckColor
             )
         }
 
@@ -50,7 +53,8 @@ interface SearchState {
             onCheckBrand: (List<Int>) -> Unit,
             onCheckSize: (List<Int>) -> Unit,
             onCheckClaspType: (List<Int>) -> Unit,
-            onCheckMoistureProtectionType: (List<Int>) -> Unit
+            onCheckMoistureProtectionType: (List<Int>) -> Unit,
+            onCheckColor: (List<Int>) -> Unit
         ) = Unit
 
         override fun inverse(): SearchState = Expanded

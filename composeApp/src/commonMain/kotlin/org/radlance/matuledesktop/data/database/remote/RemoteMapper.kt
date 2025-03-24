@@ -3,6 +3,7 @@ package org.radlance.matuledesktop.data.database.remote
 import org.radlance.matuledesktop.data.database.remote.entity.BrandEntity
 import org.radlance.matuledesktop.data.database.remote.entity.CategoryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ClaspTypeEntity
+import org.radlance.matuledesktop.data.database.remote.entity.ColorEntity
 import org.radlance.matuledesktop.data.database.remote.entity.MoistureProtectionTypeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.OriginCountryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductEntity
@@ -14,6 +15,7 @@ import org.radlance.matuledesktop.domain.product.ClaspType
 import org.radlance.matuledesktop.domain.product.MoistureProtectionType
 import org.radlance.matuledesktop.domain.product.OriginCountry
 import org.radlance.matuledesktop.domain.product.Product
+import org.radlance.matuledesktop.domain.product.ProductColor
 import org.radlance.matuledesktop.domain.product.ProductSize
 import org.radlance.matuledesktop.domain.product.Size
 
@@ -41,6 +43,7 @@ abstract class RemoteMapper {
             brandId = brandId,
             claspTypeId = claspTypeId,
             moistureProtectionTypeId = moistureProtectionTypeId,
+            colors = colors.map { it.toColor() },
             modelName = modelName
         )
     }
@@ -67,5 +70,9 @@ abstract class RemoteMapper {
 
     protected fun MoistureProtectionTypeEntity.toMoistureProtectionType(): MoistureProtectionType {
         return MoistureProtectionType(id = id, name = name)
+    }
+
+    protected fun ColorEntity.toColor(): ProductColor {
+        return ProductColor(id = id, name = name, red = red, green = green, blue = blue)
     }
 }

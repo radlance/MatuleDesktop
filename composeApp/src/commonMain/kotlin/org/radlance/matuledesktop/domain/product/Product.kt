@@ -15,5 +15,6 @@ data class Product(
     val modelName: String,
     val claspTypeId: Int,
     val moistureProtectionTypeId: Int,
+    val colors: List<ProductColor>,
     val id: Int = 0
 )

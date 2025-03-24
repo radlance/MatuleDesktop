@@ -56,6 +56,7 @@ fun SearchField(
     onCheckSize: (List<Int>) -> Unit,
     onCheckClaspType: (List<Int>) -> Unit,
     onCheckMoistureProtectionType: (List<Int>) -> Unit,
+    onCheckColor: (List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var searchState by remember { mutableStateOf<SearchState>(SearchState.Collapsed) }
@@ -141,7 +142,8 @@ fun SearchField(
             onCheckBrand = onCheckBrand,
             onCheckSize = onCheckSize,
             onCheckClaspType = onCheckClaspType,
-            onCheckMoistureProtectionType = onCheckMoistureProtectionType
+            onCheckMoistureProtectionType = onCheckMoistureProtectionType,
+            onCheckColor = onCheckColor
         )
     }
 }

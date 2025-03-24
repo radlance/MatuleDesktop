@@ -44,7 +44,8 @@ class RemoteProductRepository(
                         sizes = sizes.map { it.toSize() },
                         brands = brands.map { it.toBrand() },
                         claspTypes = claspTypes.map { it.toClaspType() },
-                        moistureProtectionTypes = moistureProtectionTypes.map { it.toMoistureProtectionType() }
+                        moistureProtectionTypes = moistureProtectionTypes.map { it.toMoistureProtectionType() },
+                        colors = colors.map { it.toColor() }
                     )
                 )
             }

@@ -36,4 +36,5 @@
     <string name="clasp_type">Застежка</string>
     <string name="popular_product">Популярный товар!</string>
     <string name="moisture_protection_type">Защита от влаги</string>
+    <string name="color">Цвет</string>
 </resources>

@@ -7,5 +7,6 @@ data class CatalogFetchContent(
     val sizes: List<Size>,
     val claspTypes: List<ClaspType>,
     val moistureProtectionTypes: List<MoistureProtectionType>,
-    val products: List<Product>
+    val products: List<Product>,
+    val colors: List<ProductColor>
 )
