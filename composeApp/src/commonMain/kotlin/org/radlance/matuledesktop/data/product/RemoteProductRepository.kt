@@ -35,8 +35,8 @@ class RemoteProductRepository(
                         categories = categories.map { it.toCategory() },
                         products = products.map { product ->
                             product.toProduct(
-                                isFavorite = favoriteProducts.containsKey(product.id.toString()),
-                                quantityInCart = cartProducts[product.id.toString()]?.quantity
+                                isFavorite = favoriteProducts?.containsKey(product.id.toString()) ?: false,
+                                quantityInCart = cartProducts?.get(product.id.toString())?.quantity
                                     ?: 0
                             )
                         },
