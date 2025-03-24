@@ -2,6 +2,7 @@ package org.radlance.matuledesktop.presentation.home.details
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -24,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -34,6 +39,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.clasp_type
+import matuledesktop.composeapp.generated.resources.color
 import matuledesktop.composeapp.generated.resources.moisture_protection_type
 import matuledesktop.composeapp.generated.resources.origin_country
 import matuledesktop.composeapp.generated.resources.popular_product
@@ -162,6 +168,32 @@ internal class ProductDetailsScreen(
                                         selectedProduct.moistureProtectionTypeId == it.id
                                     }.name
                                 )
+
+                                Row {
+                                    Text(text = "${stringResource(Res.string.color)}:")
+                                    Spacer(Modifier.width(12.dp))
+                                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                        selectedProduct.colors.forEach { color ->
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(28.dp)
+                                                    .clip(CircleShape)
+                                                    .border(
+                                                        width = 1.dp,
+                                                        color = Color.Black,
+                                                        shape = CircleShape,
+                                                    )
+                                                    .background(
+                                                        Color(
+                                                            red = color.red,
+                                                            green = color.green,
+                                                            blue = color.blue
+                                                        )
+                                                    )
+                                            )
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
