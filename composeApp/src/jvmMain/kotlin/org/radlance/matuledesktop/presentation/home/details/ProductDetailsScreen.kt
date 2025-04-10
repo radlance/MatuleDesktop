@@ -31,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.add_to_cart
@@ -53,6 +53,7 @@ import matuledesktop.composeapp.generated.resources.in_cart
 import matuledesktop.composeapp.generated.resources.load_error
 import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.navigation.NavigationTab
 import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.common.ProductCardImage
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
@@ -68,12 +69,13 @@ internal class ProductDetailsScreen(
     @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     override fun Content() {
+        val tabNavigator = LocalTabNavigator.current
         val navigator = LocalNavigator.currentOrThrow
         val containerSize = LocalWindowInfo.current.containerSize
 
         val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
         val scrollState = rememberScrollState()
-        var selectedProductSize by remember { mutableStateOf(-1) }
+        var selectedProductSize by rememberSaveable { mutableStateOf(-1) }
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
@@ -189,7 +191,8 @@ internal class ProductDetailsScreen(
                                         OutlinedButton(
                                             onClick = {
                                                 if (addedInCartCurrent) {
-                                                    //TODO navigate to cart
+                                                    tabNavigator.current =
+                                                        NavigationTab.Cart(imageLoader, viewModel)
                                                 } else {
                                                     viewModel.addProductToCart(
                                                         selectedProductId,

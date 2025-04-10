@@ -28,7 +28,8 @@ class MainScreen : Screen {
 
         val railTabs = listOf(
             NavigationTab.Home(imageLoader, viewModel),
-            NavigationTab.Favorite(imageLoader, viewModel)
+            NavigationTab.Favorite(imageLoader, viewModel),
+            NavigationTab.Cart(imageLoader, viewModel)
         )
 
         TabNavigator(railTabs.first()) {

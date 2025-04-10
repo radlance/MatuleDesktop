@@ -41,4 +41,5 @@
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="add_to_favorite">Добавить в избранное</string>
     <string name="in_cart">Перейти в корзину</string>
+    <string name="cart">Корзина</string>
 </resources>
