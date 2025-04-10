@@ -52,7 +52,6 @@ internal class SearchScreen(
         val navigator = LocalNavigator.currentOrThrow
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
-        val addToCartResult by viewModel.inCartResult.collectAsState()
 
         var searchFieldValue by rememberSaveable { mutableStateOf("") }
         var selectedCountryIds by remember { mutableStateOf<List<Int>?>(null) }
@@ -69,20 +68,6 @@ internal class SearchScreen(
             },
             onError = { productId ->
                 ChangeProductStatus(productId, viewModel::changeStateFavoriteStatus)
-            },
-            onUnauthorized = {}
-        )
-
-        addToCartResult.Show(
-            onSuccess = {},
-            onLoading = { productId ->
-                ChangeProductStatus(productId, viewModel::changeStateInCartStatus)
-            },
-            onError = { productId ->
-                ChangeProductStatus(
-                    productId = productId,
-                    onStatusChanged = { viewModel.changeStateInCartStatus(it, recover = true) }
-                )
             },
             onUnauthorized = {}
         )
@@ -172,13 +157,11 @@ internal class SearchScreen(
                             imageLoader = imageLoader,
                             products = foundedProducts,
                             viewModel = viewModel,
-                            navigateToCart = {},
                             navigateToDetails = {
                                 navigator.push(
                                     ProductDetailsScreen(
-                                        selectedProduct = it,
+                                        selectedProductId = it.id,
                                         imageLoader = imageLoader,
-                                        fetchContent = fetchContent,
                                         viewModel = viewModel
                                     )
                                 )

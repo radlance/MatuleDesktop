@@ -40,4 +40,5 @@
     <string name="choose_size">Выберите размер</string>
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="add_to_favorite">Добавить в избранное</string>
+    <string name="in_cart">Перейти в корзину</string>
 </resources>

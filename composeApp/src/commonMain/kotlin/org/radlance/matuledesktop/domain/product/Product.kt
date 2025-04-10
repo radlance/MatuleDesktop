@@ -7,7 +7,6 @@ data class Product(
     val imageUrl: String,
     val categoryId: Int,
     val isFavorite: Boolean,
-    val quantityInCart: Int,
     val isPopular: Boolean,
     val originCountryId: Int,
     val brandId: Int,

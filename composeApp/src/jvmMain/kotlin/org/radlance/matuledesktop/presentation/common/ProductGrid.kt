@@ -23,7 +23,6 @@ internal fun ProductGrid(
     imageLoader: ImageLoader,
     products: List<Product>,
     viewModel: ProductViewModel,
-    navigateToCart: () -> Unit,
     navigateToDetails: (Product) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -42,13 +41,6 @@ internal fun ProductGrid(
                     imageLoader = imageLoader,
                     product = product,
                     onLikeClick = { viewModel.changeFavoriteStatus(product.id) },
-                    onCartClick = {
-                        if (product.quantityInCart == 0) {
-                            viewModel.addProductToCart(product.id)
-                        } else {
-                            navigateToCart()
-                        }
-                    },
                     onCardClick = navigateToDetails
                 )
             }

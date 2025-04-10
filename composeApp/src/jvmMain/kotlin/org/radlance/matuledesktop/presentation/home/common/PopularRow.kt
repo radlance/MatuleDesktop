@@ -27,9 +27,7 @@ internal fun PopularRow(
     imageLoader: ImageLoader,
     products: List<Product>,
     onLikeClick: (productId: Int) -> Unit,
-    onAddCartClick: (productId: Int) -> Unit,
     onCardClick: (Product) -> Unit,
-    navigateToCart: () -> Unit,
     navigateToPopular: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -73,13 +71,6 @@ internal fun PopularRow(
                             onLikeClick(product.id)
                         },
                         product = product,
-                        onCartClick = {
-                            if (product.quantityInCart == 0) {
-                                onAddCartClick(product.id)
-                            } else {
-                                navigateToCart()
-                            }
-                        },
                         onCardClick = onCardClick,
                         modifier = Modifier.weight(1f)
                     )

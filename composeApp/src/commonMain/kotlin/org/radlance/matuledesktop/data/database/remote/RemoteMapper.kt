@@ -25,8 +25,7 @@ abstract class RemoteMapper {
     }
 
     protected fun ProductEntity.toProduct(
-        isFavorite: Boolean,
-        quantityInCart: Int
+        isFavorite: Boolean
     ): Product {
         return Product(
             id = id,
@@ -35,7 +34,6 @@ abstract class RemoteMapper {
             description = description,
             imageUrl = imageUrl,
             isFavorite = isFavorite,
-            quantityInCart = quantityInCart,
             categoryId = categoryId,
             isPopular = isPopular,
             originCountryId = originCountryId,
@@ -49,7 +47,7 @@ abstract class RemoteMapper {
     }
 
     protected fun ProductSizeEntity.toProductSize(): ProductSize {
-        return ProductSize(size = size, quantity = quantity)
+        return ProductSize(sizeId = sizeId, size = size, quantity = quantity)
     }
 
     protected fun SizeEntity.toSize(): Size {

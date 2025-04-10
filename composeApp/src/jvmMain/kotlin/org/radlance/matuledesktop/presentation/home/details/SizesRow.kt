@@ -29,12 +29,11 @@ internal fun SizesRow(
 ) {
     val lazyListState = rememberLazyListState()
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier) {
         LazyRow(
             state = lazyListState,
             horizontalArrangement = Arrangement.spacedBy(13.dp),
-            contentPadding = paddingValues,
-            modifier = Modifier.fillMaxWidth()
+            contentPadding = paddingValues
         ) {
             items(items = sizes, key = { size -> size.size }) { size ->
                 ItemChoose(
@@ -50,7 +49,6 @@ internal fun SizesRow(
                                 Modifier
                             }
                         )
-
                 )
             }
         }

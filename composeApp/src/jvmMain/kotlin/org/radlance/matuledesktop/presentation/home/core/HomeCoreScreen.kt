@@ -55,7 +55,6 @@ internal class HomeCoreScreen(
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
-        val addToCartResult by viewModel.inCartResult.collectAsState()
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -64,20 +63,6 @@ internal class HomeCoreScreen(
             },
             onError = { productId ->
                 ChangeProductStatus(productId, viewModel::changeStateFavoriteStatus)
-            },
-            onUnauthorized = {}
-        )
-
-        addToCartResult.Show(
-            onSuccess = {},
-            onLoading = { productId ->
-                ChangeProductStatus(productId, viewModel::changeStateInCartStatus)
-            },
-            onError = { productId ->
-                ChangeProductStatus(
-                    productId = productId,
-                    onStatusChanged = { viewModel.changeStateInCartStatus(it, recover = true) }
-                )
             },
             onUnauthorized = {}
         )
@@ -131,19 +116,14 @@ internal class HomeCoreScreen(
                                 imageLoader = imageLoader,
                                 products = fetchContent.products,
                                 onLikeClick = viewModel::changeFavoriteStatus,
-                                onAddCartClick = viewModel::addProductToCart,
                                 onCardClick = {
                                     navigator.push(
                                         ProductDetailsScreen(
-                                            selectedProduct = it,
+                                            selectedProductId = it.id,
                                             imageLoader = imageLoader,
-                                            fetchContent = fetchContent,
                                             viewModel = viewModel
                                         )
                                     )
-                                },
-                                navigateToCart = {
-
                                 },
                                 navigateToPopular = {
                                     navigator.push(PopularScreen(viewModel, imageLoader))

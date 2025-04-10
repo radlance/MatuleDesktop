@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
@@ -40,7 +38,6 @@ internal fun ProductCard(
     imageLoader: ImageLoader,
     product: Product,
     onLikeClick: () -> Unit,
-    onCartClick: () -> Unit,
     onCardClick: (Product) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -56,13 +53,14 @@ internal fun ProductCard(
                     .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             )
 
-            ProductCardDetails(product, onCartClick, onLikeClick)
+            ProductCardDetails(product, onLikeClick)
+            Spacer(Modifier.height(4.dp))
         }
     }
 }
 
 @Composable
-private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLikeClick: () -> Unit) {
+private fun ProductCardDetails(product: Product, onLikeClick: () -> Unit) {
     val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
 
     Spacer(Modifier.height(12.dp))
@@ -90,15 +88,7 @@ private fun ProductCardDetails(product: Product, onCartClick: () -> Unit, onLike
             )
         }
 
-        IconButton(onClick = onCartClick) {
-            val addIcon = if (product.quantityInCart == 0) {
-                Icons.Default.Add
-            } else {
-                Icons.Default.ShoppingCart
-            }
-
-            Icon(imageVector = addIcon, contentDescription = null)
-        }
+        Spacer(Modifier.width(20.dp))
 
         IconButton(onClick = onLikeClick) {
             if (product.isFavorite) {

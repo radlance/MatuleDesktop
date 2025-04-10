@@ -48,7 +48,6 @@ internal class PopularScreen(
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
-        val addToCartResult by viewModel.inCartResult.collectAsState()
 
         addToFavoriteResult.Show(
             onSuccess = {},
@@ -57,20 +56,6 @@ internal class PopularScreen(
             },
             onError = { productId ->
                 ChangeProductStatus(productId, viewModel::changeStateFavoriteStatus)
-            },
-            onUnauthorized = {}
-        )
-
-        addToCartResult.Show(
-            onSuccess = {},
-            onLoading = { productId ->
-                ChangeProductStatus(productId, viewModel::changeStateInCartStatus)
-            },
-            onError = { productId ->
-                ChangeProductStatus(
-                    productId = productId,
-                    onStatusChanged = { viewModel.changeStateInCartStatus(it, recover = true) }
-                )
             },
             onUnauthorized = {}
         )
@@ -111,13 +96,11 @@ internal class PopularScreen(
                         imageLoader = imageLoader,
                         products = popularProducts,
                         viewModel = viewModel,
-                        navigateToCart = {},
                         navigateToDetails = {
                             navigator.push(
                                 ProductDetailsScreen(
-                                    selectedProduct = it,
+                                    selectedProductId = it.id,
                                     imageLoader = imageLoader,
-                                    fetchContent = fetchContent,
                                     viewModel = viewModel
                                 )
                             )
