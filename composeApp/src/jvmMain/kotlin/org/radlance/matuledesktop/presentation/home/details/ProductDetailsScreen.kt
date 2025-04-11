@@ -95,7 +95,7 @@ internal class ProductDetailsScreen(
         )
 
         addToCartResult.Show(
-            onSuccess = {},
+            onSuccess = { viewModel.fetchCartItems() },
             onLoading = {
                 addedInCartCurrent = true
 
@@ -175,7 +175,10 @@ internal class ProductDetailsScreen(
                                     ProductDetailsSizeSection(
                                         selectedProduct,
                                         selectedProductSize,
-                                        onSizeClick = { selectedProductSize = it }
+                                        onSizeClick = {
+                                            selectedProductSize = it
+                                            addedInCartCurrent = false
+                                        }
                                     )
 
                                     Spacer(Modifier.height(20.dp))

@@ -37,6 +37,11 @@ class ProductViewModel(
     val inCartResult: StateFlow<FetchResultUiState<Int>>
         get() = _inCartResult.asStateFlow()
 
+    private val _quantityResult =
+        MutableStateFlow<FetchResultUiState<Int>>(FetchResultUiState.Initial())
+    val quantityResult: StateFlow<FetchResultUiState<Int>>
+        get() = _quantityResult.asStateFlow()
+
     fun fetchContent() {
         updateFetchUiState(_catalogContent) { productRepository.fetchCatalogContent() }
     }
@@ -57,10 +62,41 @@ class ProductViewModel(
         }
     }
 
+    fun updateProductQuantity(cartItemId: Int, currentQuantity: Int) {
+        updateFetchUiState(stateFlow = _quantityResult, loadingData = cartItemId) {
+            cartRepository.updateCartItemQuantity(cartItemId, currentQuantity)
+        }
+    }
+
     fun changeStateFavoriteStatus(productId: Int) {
         updateLocalState(_catalogContent) { currentState ->
             changeFavoriteByResult(currentState, productId)
         }
+    }
+
+    fun updateCurrentQuantity(cartItemId: Int, increment: Boolean) {
+        updateLocalState(_cartContent) { currentState ->
+            updateCartItemQuantity(currentState, cartItemId, increment)
+        }
+    }
+
+    private fun updateCartItemQuantity(
+        currentState: FetchResultUiState.Success<List<CartItem>>,
+        cartItemId: Int,
+        increment: Boolean
+    ) {
+        val updatedProducts = currentState.data.map { cartItem ->
+            if (cartItem.id == cartItemId) {
+                val newQuantity =
+                    if (increment) cartItem.quantity.inc() else cartItem.quantity.dec()
+                cartItem.copy(quantity = newQuantity)
+            } else {
+                cartItem
+            }
+        }
+
+        val updatedState = currentState.copy(data = updatedProducts)
+        _cartContent.value = updatedState
     }
 
     fun changeLocalCartState(
@@ -108,19 +144,7 @@ class ProductViewModel(
             }
         }
 
-        val finalCartItems = if (updatedCartItems == currentState.data) {
-            currentState.data + listOf(
-                CartItem(
-                    productId = productId,
-                    productSize = size,
-                    quantity = if (reverse) 0 else 1
-                )
-            )
-        } else {
-            updatedCartItems
-        }
-
-        val updatedContent = currentState.copy(data = finalCartItems)
+        val updatedContent = currentState.copy(data = updatedCartItems)
         _cartContent.value = updatedContent
     }
 }

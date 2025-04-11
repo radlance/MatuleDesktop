@@ -1,6 +1,5 @@
 package org.radlance.matuledesktop.cart
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +18,9 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,8 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.cart
@@ -36,8 +36,8 @@ import matuledesktop.composeapp.generated.resources.load_error
 import matuledesktop.composeapp.generated.resources.proceed_to_checkout
 import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
-import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -49,13 +49,28 @@ class CartCoreScreen(
     @Composable
     override fun Content() {
 
-        val navigator = LocalNavigator.currentOrThrow
-
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val loadCartResult by viewModel.cartContent.collectAsState()
+        val quantityResult by viewModel.quantityResult.collectAsState()
 
         val verticalScrollState = rememberScrollState()
         val numberFormat: NumberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        var incrementCurrent by rememberSaveable { mutableStateOf(false) }
+
+        quantityResult.Show(
+            onSuccess = {},
+            onError = { productId ->
+                ChangeProductStatus(productId) {
+                    viewModel.updateCurrentQuantity(it, !incrementCurrent)
+                }
+            },
+            onLoading = { productId ->
+                ChangeProductStatus(productId) {
+                    viewModel.updateCurrentQuantity(it, incrementCurrent)
+                }
+            },
+            onUnauthorized = {}
+        )
 
         Column(
             modifier = Modifier.fillMaxSize().padding(top = 15.dp),
@@ -78,7 +93,7 @@ class CartCoreScreen(
                         onSuccess = { cartItems ->
                             val items = cartItems.filter { it.quantity > 0 }
 
-                            if (cartItems.isEmpty()) {
+                            if (items.isEmpty()) {
                                 Box(
                                     modifier = Modifier.fillMaxSize().padding(end = 15.dp),
                                     contentAlignment = Alignment.Center
@@ -124,23 +139,20 @@ class CartCoreScreen(
                                             .verticalScroll(verticalScrollState)
                                             .padding(end = 15.dp)
                                     ) {
-                                        items.forEach { product ->
+                                        items.forEach { cartItem ->
                                             CartItemCard(
                                                 imageLoader = imageLoader,
-                                                product = fetchContent.products.first { it.id == product.productId },
-                                                size = product.productSize,
-                                                quantity = product.quantity,
+                                                product = fetchContent.products.first { it.id == cartItem.productId },
+                                                size = cartItem.productSize,
+                                                quantity = cartItem.quantity,
                                                 numberFormat = numberFormat,
-                                                modifier = Modifier.clickable {
-                                                    navigator.push(
-                                                        ProductDetailsScreen(
-                                                            selectedProductId = product.productId,
-                                                            imageLoader = imageLoader,
-                                                            viewModel = viewModel
-                                                        )
+                                                onChangeQuantityClick = { quantity, increment ->
+                                                    viewModel.updateProductQuantity(
+                                                        cartItem.id,
+                                                        quantity
                                                     )
+                                                    incrementCurrent = increment
                                                 }
-
                                             )
                                         }
 

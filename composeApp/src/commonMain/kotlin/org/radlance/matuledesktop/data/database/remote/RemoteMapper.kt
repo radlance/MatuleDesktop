@@ -80,7 +80,8 @@ abstract class RemoteMapper {
         return CartItem(
             productId = productId,
             productSize = productSize,
-            quantity = quantity
+            quantity = quantity,
+            id = id
         )
     }
 }

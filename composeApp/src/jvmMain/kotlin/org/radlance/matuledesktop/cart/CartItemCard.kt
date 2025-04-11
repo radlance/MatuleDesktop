@@ -34,6 +34,7 @@ fun CartItemCard(
     size: Int,
     quantity: Int,
     numberFormat: NumberFormat,
+    onChangeQuantityClick: (quantity: Int, increment: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(modifier = modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))) {
@@ -78,7 +79,12 @@ fun CartItemCard(
             Row(verticalAlignment = Alignment.CenterVertically) {
 
                 OutlinedIconButton(
-                    onClick = {}
+                    onClick = {
+                        onChangeQuantityClick(
+                            quantity.dec(),
+                            false
+                        )
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Remove,
@@ -99,7 +105,12 @@ fun CartItemCard(
                 Spacer(Modifier.width(4.dp))
 
                 OutlinedIconButton(
-                    onClick = {}
+                    onClick = {
+                        onChangeQuantityClick(
+                            quantity.inc(),
+                            true
+                        )
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,

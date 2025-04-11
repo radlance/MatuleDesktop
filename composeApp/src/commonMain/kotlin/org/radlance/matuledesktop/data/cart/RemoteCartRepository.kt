@@ -2,6 +2,7 @@ package org.radlance.matuledesktop.data.cart
 
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
+import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
@@ -33,6 +34,24 @@ class RemoteCartRepository(
         } catch (e: Exception) {
             println(e.message)
             FetchResult.Error(null)
+        }
+    }
+
+    override suspend fun updateCartItemQuantity(cartItemId: Int, quantity: Int): FetchResult<Int> {
+        return try {
+            supabaseClient.from("cart_item").update(
+                {
+                    CartItemEntity::quantity setTo quantity
+                }
+            ) {
+                filter {
+                    CartItemEntity::id eq cartItemId
+                }
+            }
+
+            FetchResult.Success(cartItemId)
+        } catch (e: Exception) {
+            FetchResult.Error(cartItemId)
         }
     }
 }
