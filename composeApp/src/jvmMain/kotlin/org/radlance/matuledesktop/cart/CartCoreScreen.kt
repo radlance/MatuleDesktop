@@ -1,15 +1,18 @@
 package org.radlance.matuledesktop.cart
 
+import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -132,6 +135,7 @@ class CartCoreScreen(
                                 Spacer(Modifier.height(10.dp))
 
                                 Box(modifier = Modifier.fillMaxSize()) {
+
                                     Column(
                                         verticalArrangement = Arrangement.spacedBy(12.dp),
                                         modifier = Modifier
@@ -159,20 +163,27 @@ class CartCoreScreen(
                                         Spacer(Modifier.height(40.dp))
                                     }
 
-                                    Column(
-                                        modifier = Modifier
-                                            .align(Alignment.BottomCenter)
-                                            .padding(end = 15.dp)
-                                            .align(Alignment.BottomCenter)
-                                    ) {
-                                        Button(
-                                            onClick = {},
+                                    Box {
+                                        Column(
                                             modifier = Modifier
-                                                .fillMaxWidth()
+                                                .align(Alignment.BottomCenter)
+                                                .padding(end = 15.dp)
+                                                .align(Alignment.BottomCenter)
                                         ) {
-                                            Text(stringResource(Res.string.proceed_to_checkout))
+                                            Button(
+                                                onClick = {},
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                            ) {
+                                                Text(stringResource(Res.string.proceed_to_checkout))
+                                            }
+
                                         }
 
+                                        VerticalScrollbar(
+                                            modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                                            adapter = rememberScrollbarAdapter(verticalScrollState)
+                                        )
                                     }
 
                                     Spacer(Modifier.height(10.dp))
