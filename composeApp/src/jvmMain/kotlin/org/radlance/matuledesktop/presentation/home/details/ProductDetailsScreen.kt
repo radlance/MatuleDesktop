@@ -96,8 +96,23 @@ internal class ProductDetailsScreen(
 
         addToCartResult.Show(
             onSuccess = {},
-            onLoading = { addedInCartCurrent = true },
-            onError = { addedInCartCurrent = false },
+            onLoading = {
+                addedInCartCurrent = true
+
+                viewModel.changeLocalCartState(
+                    productId = selectedProductId,
+                    size = selectedProductSize
+                )
+            },
+            onError = {
+                addedInCartCurrent = false
+
+                viewModel.changeLocalCartState(
+                    productId = selectedProductId,
+                    size = selectedProductSize,
+                    reverse = true
+                )
+            },
             onUnauthorized = {}
         )
 

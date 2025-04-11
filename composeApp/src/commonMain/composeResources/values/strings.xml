@@ -42,4 +42,6 @@
     <string name="add_to_favorite">Добавить в избранное</string>
     <string name="in_cart">Перейти в корзину</string>
     <string name="cart">Корзина</string>
+    <string name="cart_is_empty">Корзина пуста</string>
+    <string name="proceed_to_checkout">Перейти к оформлению</string>
 </resources>

@@ -4,11 +4,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
+import org.radlance.matuledesktop.domain.cart.CartItem
+import org.radlance.matuledesktop.domain.cart.CartRepository
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 import org.radlance.matuledesktop.domain.product.ProductRepository
 
 class ProductViewModel(
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val cartRepository: CartRepository
 ) : BaseViewModel() {
 
     private val _catalogContent =
@@ -17,6 +20,12 @@ class ProductViewModel(
         _catalogContent.onStart { fetchContent() }.stateInViewModel(
             FetchResultUiState.Loading()
         )
+
+    private val _cartContent =
+        MutableStateFlow<FetchResultUiState<List<CartItem>>>(FetchResultUiState.Initial())
+    val cartContent: StateFlow<FetchResultUiState<List<CartItem>>> = _cartContent.onStart {
+        fetchCartItems()
+    }.stateInViewModel(FetchResultUiState.Initial())
 
     private val _favoriteResult =
         MutableStateFlow<FetchResultUiState<Int>>(FetchResultUiState.Initial())
@@ -30,6 +39,10 @@ class ProductViewModel(
 
     fun fetchContent() {
         updateFetchUiState(_catalogContent) { productRepository.fetchCatalogContent() }
+    }
+
+    fun fetchCartItems() {
+        updateFetchUiState(stateFlow = _cartContent) { cartRepository.cartItems() }
     }
 
     fun changeFavoriteStatus(productId: Int) {
@@ -50,6 +63,16 @@ class ProductViewModel(
         }
     }
 
+    fun changeLocalCartState(
+        productId: Int,
+        size: Int,
+        reverse: Boolean = false
+    ) {
+        updateLocalState(_cartContent) { currentState ->
+            changeCartByResult(currentState, productId, size, reverse)
+        }
+    }
+
     private fun changeFavoriteByResult(
         currentState: FetchResultUiState.Success<CatalogFetchContent>,
         productId: Int
@@ -63,5 +86,41 @@ class ProductViewModel(
         }
         val updatedContent = currentState.data.copy(products = updatedProducts)
         _catalogContent.value = FetchResultUiState.Success(updatedContent)
+    }
+
+    private fun changeCartByResult(
+        currentState: FetchResultUiState.Success<List<CartItem>>,
+        productId: Int,
+        size: Int,
+        reverse: Boolean,
+    ) {
+        val updatedCartItems = currentState.data.map { cartItem ->
+            if (cartItem.productId == productId && cartItem.productSize == size) {
+                cartItem.copy(
+                    quantity = if (reverse) {
+                        cartItem.quantity.dec()
+                    } else {
+                        cartItem.quantity.inc()
+                    }
+                )
+            } else {
+                cartItem
+            }
+        }
+
+        val finalCartItems = if (updatedCartItems == currentState.data) {
+            currentState.data + listOf(
+                CartItem(
+                    productId = productId,
+                    productSize = size,
+                    quantity = if (reverse) 0 else 1
+                )
+            )
+        } else {
+            updatedCartItems
+        }
+
+        val updatedContent = currentState.copy(data = finalCartItems)
+        _cartContent.value = updatedContent
     }
 }

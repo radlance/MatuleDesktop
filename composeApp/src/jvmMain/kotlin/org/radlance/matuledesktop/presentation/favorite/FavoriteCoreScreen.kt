@@ -28,9 +28,9 @@ import matuledesktop.composeapp.generated.resources.load_error
 import matuledesktop.composeapp.generated.resources.no_favorite_products
 import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
-import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.common.ChangeProductStatus
 import org.radlance.matuledesktop.presentation.common.ProductGrid
+import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 
 internal class FavoriteCoreScreen(
@@ -77,7 +77,10 @@ internal class FavoriteCoreScreen(
                     val favoriteProducts = fetchContent.products.filter { it.isFavorite }
 
                     if (favoriteProducts.isEmpty()) {
-                        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Box(
+                            Modifier.fillMaxSize().padding(end = 15.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
                             Text(text = stringResource(Res.string.no_favorite_products))
                         }
                     } else {

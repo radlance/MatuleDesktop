@@ -13,9 +13,11 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.radlance.matuledesktop.data.auth.AuthRepositoryImpl
+import org.radlance.matuledesktop.data.cart.RemoteCartRepository
 import org.radlance.matuledesktop.data.product.RemoteProductRepository
 import org.radlance.matuledesktop.domain.auth.AuthRepository
 import org.radlance.matuledesktop.domain.auth.AuthResult
+import org.radlance.matuledesktop.domain.cart.CartRepository
 import org.radlance.matuledesktop.domain.product.ProductRepository
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultMapper
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultUiState
@@ -53,4 +55,8 @@ val commonModule = module {
 val productModule = module {
     singleOf(::RemoteProductRepository).bind<ProductRepository>()
     viewModelOf(::ProductViewModel)
+}
+
+val cartModule = module {
+    singleOf(::RemoteCartRepository).bind<CartRepository>()
 }
