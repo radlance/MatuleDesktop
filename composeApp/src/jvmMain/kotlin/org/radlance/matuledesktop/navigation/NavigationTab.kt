@@ -2,6 +2,7 @@ package org.radlance.matuledesktop.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
@@ -13,8 +14,10 @@ import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.cart
 import matuledesktop.composeapp.generated.resources.favorite
 import matuledesktop.composeapp.generated.resources.home_screen
+import matuledesktop.composeapp.generated.resources.order_history
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.cart.CartScreen
+import org.radlance.matuledesktop.history.OrderHistoryScreen
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.favorite.FavoriteScreen
 import org.radlance.matuledesktop.presentation.home.core.HomeScreen
@@ -72,6 +75,23 @@ interface NavigationTab : Tab {
         @Composable
         override fun Content() {
             CartScreen(imageLoader, viewModel)
+        }
+    }
+
+    data class History(
+        private val imageLoader: ImageLoader,
+        private val viewModel: ProductViewModel
+    ) : NavigationTab {
+        override fun icon(): ImageVector = Icons.Default.History
+
+        override val options: TabOptions
+            @Composable
+            get() = TabOptions(index = 1u, title = stringResource(Res.string.order_history))
+
+
+        @Composable
+        override fun Content() {
+            OrderHistoryScreen(imageLoader, viewModel)
         }
     }
 }

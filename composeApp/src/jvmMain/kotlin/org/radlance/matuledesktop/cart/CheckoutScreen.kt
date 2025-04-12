@@ -81,6 +81,7 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
                 LaunchedEffect(Unit) {
                     navigator.push(SuccessPlaceOrderScreen(orderId))
                     viewModel.resetPlaceOrderState()
+                    viewModel.fetchCartItems()
                 }
             },
             onError = {

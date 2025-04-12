@@ -32,7 +32,7 @@ internal fun ProductGrid(
         LazyVerticalGrid(
             state = lazyGridState,
             columns = GridCells.Fixed(3),
-            modifier = modifier.fillMaxSize().padding(end = 10.dp),
+            modifier = modifier.fillMaxSize().padding(end = 15.dp),
             horizontalArrangement = Arrangement.spacedBy(13.dp),
             verticalArrangement = Arrangement.spacedBy(13.dp)
         ) {

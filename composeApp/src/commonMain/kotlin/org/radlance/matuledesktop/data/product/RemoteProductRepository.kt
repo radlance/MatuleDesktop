@@ -87,7 +87,6 @@ class RemoteProductRepository(
 
             FetchResult.Success(productId)
         } catch (e: Exception) {
-            println(e.message)
             FetchResult.Error(productId)
         }
     }

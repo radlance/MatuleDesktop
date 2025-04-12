@@ -14,11 +14,13 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.radlance.matuledesktop.data.auth.AuthRepositoryImpl
 import org.radlance.matuledesktop.data.cart.RemoteCartRepository
+import org.radlance.matuledesktop.data.order.RemoteOrderHistoryRepository
 import org.radlance.matuledesktop.data.product.RemoteProductRepository
 import org.radlance.matuledesktop.data.user.RemoteUserRepository
 import org.radlance.matuledesktop.domain.auth.AuthRepository
 import org.radlance.matuledesktop.domain.auth.AuthResult
 import org.radlance.matuledesktop.domain.cart.CartRepository
+import org.radlance.matuledesktop.domain.history.OrderHistoryRepository
 import org.radlance.matuledesktop.domain.product.ProductRepository
 import org.radlance.matuledesktop.domain.user.UserRepository
 import org.radlance.matuledesktop.presentation.auth.common.AuthResultMapper
@@ -64,4 +66,8 @@ val cartModule = module {
     singleOf(::RemoteCartRepository).bind<CartRepository>()
     singleOf(::RemoteUserRepository).bind<UserRepository>()
     viewModelOf(::OrderViewModel)
+}
+
+val historyModule = module {
+    singleOf(::RemoteOrderHistoryRepository).bind<OrderHistoryRepository>()
 }

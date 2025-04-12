@@ -6,12 +6,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import org.radlance.matuledesktop.domain.cart.CartItem
 import org.radlance.matuledesktop.domain.cart.CartRepository
+import org.radlance.matuledesktop.domain.history.Order
+import org.radlance.matuledesktop.domain.history.OrderHistoryRepository
 import org.radlance.matuledesktop.domain.product.CatalogFetchContent
 import org.radlance.matuledesktop.domain.product.ProductRepository
 
 class ProductViewModel(
     private val productRepository: ProductRepository,
-    private val cartRepository: CartRepository
+    private val cartRepository: CartRepository,
+    private val orderHistoryRepository: OrderHistoryRepository
 ) : BaseViewModel() {
 
     private val _catalogContent =
@@ -47,6 +50,13 @@ class ProductViewModel(
     val placeOrderResultUIState: StateFlow<FetchResultUiState<Int>>
         get() = _placeOrderResultUIState.asStateFlow()
 
+    private val _loadHistoryResultUiState =
+        MutableStateFlow<FetchResultUiState<List<Order>>>(FetchResultUiState.Initial())
+    val loadHistoryResultUiState: StateFlow<FetchResultUiState<List<Order>>> =
+        _loadHistoryResultUiState.onStart {
+            fetchOrderHistory()
+        }.stateInViewModel(FetchResultUiState.Initial())
+
     fun fetchContent() {
         updateFetchUiState(_catalogContent) { productRepository.fetchCatalogContent() }
     }
@@ -75,6 +85,10 @@ class ProductViewModel(
 
     fun placeOrder() {
         updateFetchUiState(stateFlow = _placeOrderResultUIState) { cartRepository.placeOrder() }
+    }
+
+    fun fetchOrderHistory() {
+        updateFetchUiState(stateFlow = _loadHistoryResultUiState) { orderHistoryRepository.loadHistory() }
     }
 
     fun resetPlaceOrderState() {

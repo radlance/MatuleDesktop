@@ -54,4 +54,10 @@
     <string name="order_date">Дата заказа</string>
     <string name="place_order">Оформить заказ</string>
     <string name="return_to_shopping">Вернуться к покупкам</string>
+    <string name="order_history">История заказов</string>
+    <plurals name="products">
+        <item quantity="one">%1$d товар</item>
+        <item quantity="few">%1$d товара</item>
+        <item quantity="many">%1$d товаров</item>
+    </plurals>
 </resources>

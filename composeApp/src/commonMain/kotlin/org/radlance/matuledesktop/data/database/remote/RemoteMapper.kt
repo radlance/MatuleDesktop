@@ -6,6 +6,8 @@ import org.radlance.matuledesktop.data.database.remote.entity.CategoryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ClaspTypeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ColorEntity
 import org.radlance.matuledesktop.data.database.remote.entity.MoistureProtectionTypeEntity
+import org.radlance.matuledesktop.data.database.remote.entity.OrderEntity
+import org.radlance.matuledesktop.data.database.remote.entity.OrderItemEntity
 import org.radlance.matuledesktop.data.database.remote.entity.OriginCountryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductSizeEntity
@@ -13,6 +15,8 @@ import org.radlance.matuledesktop.data.database.remote.entity.SizeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.UserEntity
 import org.radlance.matuledesktop.domain.auth.User
 import org.radlance.matuledesktop.domain.cart.CartItem
+import org.radlance.matuledesktop.domain.history.Order
+import org.radlance.matuledesktop.domain.history.OrderItem
 import org.radlance.matuledesktop.domain.product.Brand
 import org.radlance.matuledesktop.domain.product.Category
 import org.radlance.matuledesktop.domain.product.ClaspType
@@ -89,5 +93,24 @@ abstract class RemoteMapper {
 
     protected fun UserEntity.toUser(): User {
         return User(firstName = name, imageUrl = imageUrl)
+    }
+
+    protected fun OrderEntity.toOrder(): Order {
+        return Order(
+            id = id,
+            date = date,
+            totalPrice = totalPrice,
+            orderItems = orderItems.map { it.toOrderItem() }
+        )
+    }
+
+    protected fun OrderItemEntity.toOrderItem(): OrderItem {
+        return OrderItem(
+            orderId = orderId,
+            productId = productId,
+            size = size,
+            quantity = quantity,
+            priceAtPurchase = priceAtPurchase
+        )
     }
 }

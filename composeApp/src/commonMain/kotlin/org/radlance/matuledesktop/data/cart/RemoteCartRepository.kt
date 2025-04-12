@@ -32,7 +32,6 @@ class RemoteCartRepository(
             FetchResult.Success(response?.map { it.toCartItem() } ?: emptyList())
 
         } catch (e: Exception) {
-            println(e.message)
             FetchResult.Error(null)
         }
     }
@@ -70,7 +69,6 @@ class RemoteCartRepository(
             FetchResult.Success(stringResponse.toInt())
 
         } catch (e: Exception) {
-            println(e.message)
             FetchResult.Error(null)
         }
     }

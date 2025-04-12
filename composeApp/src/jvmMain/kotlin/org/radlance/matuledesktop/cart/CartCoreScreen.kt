@@ -144,7 +144,7 @@ internal class CartCoreScreen(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .verticalScroll(verticalScrollState)
-                                            .padding(end = 15.dp)
+                                            .padding(end = 10.dp)
                                     ) {
                                         items.forEach { cartItem ->
                                             CartItemCard(
