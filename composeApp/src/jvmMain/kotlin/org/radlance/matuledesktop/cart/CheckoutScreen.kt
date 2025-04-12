@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -69,9 +70,27 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val loadCartResult by viewModel.cartContent.collectAsState()
+        val placeOrderResultUiState by viewModel.placeOrderResultUIState.collectAsState()
         val userUiState by orderViewModel.userUiState.collectAsState()
 
         val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        var placeOrderButtonEnabled by remember { mutableStateOf(true) }
+
+        placeOrderResultUiState.Show(
+            onSuccess = { orderId ->
+                LaunchedEffect(Unit) {
+                    navigator.push(SuccessPlaceOrderScreen(orderId))
+                    viewModel.resetPlaceOrderState()
+                }
+            },
+            onError = {
+                placeOrderButtonEnabled = true
+            },
+            onLoading = {
+                placeOrderButtonEnabled = false
+            },
+            onUnauthorized = {}
+        )
 
         userUiState.Show(
             onSuccess = { userData ->
@@ -190,7 +209,7 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
 
                                             CheckoutDataItem(
                                                 label = "${product.title}, ${cartItem.productSize} размер",
-                                                value = "${numberFormat.format(product.price)} x${cartItem.quantity}"
+                                                value = "${numberFormat.format(product.price)} ₽ x${cartItem.quantity}"
                                             )
                                         }
 
@@ -204,7 +223,8 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
                                     )
 
                                     Button(
-                                        onClick = {},
+                                        onClick = viewModel::placeOrder,
+                                        enabled = placeOrderButtonEnabled,
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(end = 15.dp)

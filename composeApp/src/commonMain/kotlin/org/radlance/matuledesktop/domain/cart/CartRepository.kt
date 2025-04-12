@@ -8,4 +8,5 @@ interface CartRepository {
 
     suspend fun updateCartItemQuantity(cartItemId: Int, quantity: Int): FetchResult<Int>
 
+    suspend fun placeOrder(): FetchResult<Int>
 }

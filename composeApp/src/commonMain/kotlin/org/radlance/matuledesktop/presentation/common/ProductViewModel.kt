@@ -42,6 +42,11 @@ class ProductViewModel(
     val quantityResult: StateFlow<FetchResultUiState<Int>>
         get() = _quantityResult.asStateFlow()
 
+    private val _placeOrderResultUIState =
+        MutableStateFlow<FetchResultUiState<Int>>(FetchResultUiState.Initial())
+    val placeOrderResultUIState: StateFlow<FetchResultUiState<Int>>
+        get() = _placeOrderResultUIState.asStateFlow()
+
     fun fetchContent() {
         updateFetchUiState(_catalogContent) { productRepository.fetchCatalogContent() }
     }
@@ -66,6 +71,14 @@ class ProductViewModel(
         updateFetchUiState(stateFlow = _quantityResult, loadingData = cartItemId) {
             cartRepository.updateCartItemQuantity(cartItemId, currentQuantity)
         }
+    }
+
+    fun placeOrder() {
+        updateFetchUiState(stateFlow = _placeOrderResultUIState) { cartRepository.placeOrder() }
+    }
+
+    fun resetPlaceOrderState() {
+        _placeOrderResultUIState.value = FetchResultUiState.Initial()
     }
 
     fun changeStateFavoriteStatus(productId: Int) {

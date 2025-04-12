@@ -53,4 +53,5 @@
     <string name="total_amount">Общее количество товаров</string>
     <string name="order_date">Дата заказа</string>
     <string name="place_order">Оформить заказ</string>
+    <string name="return_to_shopping">Вернуться к покупкам</string>
 </resources>

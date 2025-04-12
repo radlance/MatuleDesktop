@@ -174,7 +174,11 @@ internal class CartCoreScreen(
                                                 .align(Alignment.BottomCenter)
                                         ) {
                                             Button(
-                                                onClick = { navigator.push(CheckoutScreen(viewModel)) },
+                                                onClick = {
+                                                    navigator.push(
+                                                        CheckoutScreen(viewModel)
+                                                    )
+                                                },
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                             ) {

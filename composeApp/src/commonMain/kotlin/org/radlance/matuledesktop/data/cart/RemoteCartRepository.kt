@@ -54,4 +54,24 @@ class RemoteCartRepository(
             FetchResult.Error(cartItemId)
         }
     }
+
+    override suspend fun placeOrder(): FetchResult<Int> {
+        val user =
+            supabaseClient.auth.currentSessionOrNull()?.user ?: return FetchResult.Error(null)
+
+        return try {
+            val stringResponse = supabaseClient.postgrest.rpc(
+                "place_order",
+                buildJsonObject {
+                    put("user_id", user.id)
+                }
+            ).data
+
+            FetchResult.Success(stringResponse.toInt())
+
+        } catch (e: Exception) {
+            println(e.message)
+            FetchResult.Error(null)
+        }
+    }
 }
