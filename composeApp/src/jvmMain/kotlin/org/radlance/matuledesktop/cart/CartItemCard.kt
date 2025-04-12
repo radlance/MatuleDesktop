@@ -28,7 +28,7 @@ import org.radlance.matuledesktop.presentation.common.ProductCardImage
 import java.text.NumberFormat
 
 @Composable
-fun CartItemCard(
+internal fun CartItemCard(
     imageLoader: ImageLoader,
     product: Product,
     size: Int,

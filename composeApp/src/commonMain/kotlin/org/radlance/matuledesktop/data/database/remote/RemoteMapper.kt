@@ -10,6 +10,8 @@ import org.radlance.matuledesktop.data.database.remote.entity.OriginCountryEntit
 import org.radlance.matuledesktop.data.database.remote.entity.ProductEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ProductSizeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.SizeEntity
+import org.radlance.matuledesktop.data.database.remote.entity.UserEntity
+import org.radlance.matuledesktop.domain.auth.User
 import org.radlance.matuledesktop.domain.cart.CartItem
 import org.radlance.matuledesktop.domain.product.Brand
 import org.radlance.matuledesktop.domain.product.Category
@@ -83,5 +85,9 @@ abstract class RemoteMapper {
             quantity = quantity,
             id = id
         )
+    }
+
+    protected fun UserEntity.toUser(): User {
+        return User(firstName = name, imageUrl = imageUrl)
     }
 }

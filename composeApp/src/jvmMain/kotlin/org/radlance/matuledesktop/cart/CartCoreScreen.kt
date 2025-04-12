@@ -31,6 +31,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.cart
@@ -44,13 +46,14 @@ import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import java.text.NumberFormat
 import java.util.Locale
 
-class CartCoreScreen(
+internal class CartCoreScreen(
     private val imageLoader: ImageLoader,
     private val viewModel: ProductViewModel
 ) : Screen {
 
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val loadCartResult by viewModel.cartContent.collectAsState()
@@ -171,7 +174,7 @@ class CartCoreScreen(
                                                 .align(Alignment.BottomCenter)
                                         ) {
                                             Button(
-                                                onClick = {},
+                                                onClick = { navigator.push(CheckoutScreen(viewModel)) },
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                             ) {
