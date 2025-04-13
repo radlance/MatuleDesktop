@@ -1,6 +1,7 @@
 package org.radlance.matuledesktop.history
 
 import androidx.compose.foundation.HorizontalScrollbar
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +33,7 @@ fun OrderHistoryItem(
     order: Order,
     products: List<Product>,
     imageLoader: ImageLoader,
+    onProductClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
@@ -53,16 +55,19 @@ fun OrderHistoryItem(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                     modifier = Modifier.horizontalScroll(scrollState).padding(bottom = 4.dp)
                 ) {
-                    val imageSet =
-                        order.orderItems.map { order ->
-                            products.first { it.id == order.productId }.imageUrl
-                        }.toSet()
+                    val imageMap = order.orderItems.associate { orderItem ->
+                        val product = products.first { it.id == orderItem.productId }
+                        product.imageUrl to product.id
+                    }
 
-                    imageSet.forEach { image ->
+                    imageMap.forEach { entry ->
                         ProductCardImage(
                             imageLoader = imageLoader,
-                            imageUrl = image,
-                            modifier = Modifier.width(100.dp).clip(RoundedCornerShape(12.dp))
+                            imageUrl = entry.key,
+                            modifier = Modifier
+                                .width(100.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .clickable { onProductClick(entry.value) }
                         )
                     }
                 }

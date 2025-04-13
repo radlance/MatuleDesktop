@@ -29,6 +29,8 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import coil3.ImageLoader
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.toJavaLocalDateTime
@@ -40,6 +42,7 @@ import matuledesktop.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
+import org.radlance.matuledesktop.presentation.home.details.ProductDetailsScreen
 import java.text.NumberFormat
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -53,6 +56,7 @@ class OrderHistoryCoreScreen(
 
     @Composable
     override fun Content() {
+        val navigator = LocalNavigator.currentOrThrow
         val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
 
         val loadHistoryResulUiState by viewModel.loadHistoryResultUiState.collectAsState()
@@ -116,7 +120,16 @@ class OrderHistoryCoreScreen(
                                             OrderHistoryItem(
                                                 order = order,
                                                 products = fetchContent.products,
-                                                imageLoader = imageLoader
+                                                imageLoader = imageLoader,
+                                                onProductClick = { productId ->
+                                                    navigator.push(
+                                                        ProductDetailsScreen(
+                                                            selectedProductId = productId,
+                                                            imageLoader = imageLoader,
+                                                            viewModel = viewModel
+                                                        )
+                                                    )
+                                                }
                                             )
 
                                             Spacer(Modifier.height(4.dp))
