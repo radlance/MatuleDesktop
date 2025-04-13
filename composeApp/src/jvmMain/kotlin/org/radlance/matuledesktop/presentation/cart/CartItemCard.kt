@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.cart
+package org.radlance.matuledesktop.presentation.cart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

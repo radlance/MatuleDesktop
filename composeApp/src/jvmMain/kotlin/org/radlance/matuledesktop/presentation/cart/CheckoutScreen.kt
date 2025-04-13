@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.cart
+package org.radlance.matuledesktop.presentation.cart
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +51,6 @@ import matuledesktop.composeapp.generated.resources.user_data
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.radlance.matuledesktop.domain.auth.User
-import org.radlance.matuledesktop.presentation.cart.OrderViewModel
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import java.text.NumberFormat
 import java.time.LocalDate
@@ -127,8 +126,6 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
 
                 Spacer(Modifier.height(10.dp))
             }
-
-            Spacer(Modifier.height(10.dp))
 
             loadContentResult.Show(
                 onSuccess = { fetchContent ->

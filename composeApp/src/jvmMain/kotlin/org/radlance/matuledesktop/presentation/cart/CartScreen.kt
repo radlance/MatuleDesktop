@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.history
+package org.radlance.matuledesktop.presentation.cart
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
@@ -7,9 +7,9 @@ import coil3.ImageLoader
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
 @Composable
-fun OrderHistoryScreen(
+internal fun CartScreen(
     imageLoader: ImageLoader,
     viewModel: ProductViewModel
-) = Navigator(OrderHistoryCoreScreen(imageLoader, viewModel)) { navigator ->
+) = Navigator(CartCoreScreen(imageLoader, viewModel)) { navigator ->
     SlideTransition(navigator)
 }

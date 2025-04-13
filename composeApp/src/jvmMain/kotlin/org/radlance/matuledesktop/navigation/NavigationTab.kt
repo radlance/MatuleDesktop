@@ -16,8 +16,8 @@ import matuledesktop.composeapp.generated.resources.favorite
 import matuledesktop.composeapp.generated.resources.home_screen
 import matuledesktop.composeapp.generated.resources.order_history
 import org.jetbrains.compose.resources.stringResource
-import org.radlance.matuledesktop.cart.CartScreen
-import org.radlance.matuledesktop.history.OrderHistoryScreen
+import org.radlance.matuledesktop.presentation.cart.CartScreen
+import org.radlance.matuledesktop.presentation.history.OrderHistoryScreen
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.favorite.FavoriteScreen
 import org.radlance.matuledesktop.presentation.home.core.HomeScreen

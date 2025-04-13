@@ -61,4 +61,5 @@
         <item quantity="many">%1$d товаров</item>
     </plurals>
     <string name="it_is_in_the_order">Есть в заказе</string>
+    <string name="history_is_empty">История заказов пуста</string>
 </resources>

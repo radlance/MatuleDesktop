@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.cart
+package org.radlance.matuledesktop.presentation.cart
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.Arrangement

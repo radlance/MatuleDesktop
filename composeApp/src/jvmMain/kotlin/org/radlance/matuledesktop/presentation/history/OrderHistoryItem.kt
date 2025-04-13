@@ -1,4 +1,4 @@
-package org.radlance.matuledesktop.history
+package org.radlance.matuledesktop.presentation.history
 
 import androidx.compose.foundation.HorizontalScrollbar
 import androidx.compose.foundation.clickable
