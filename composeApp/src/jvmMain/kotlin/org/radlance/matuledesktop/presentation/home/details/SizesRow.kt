@@ -23,7 +23,7 @@ import org.radlance.matuledesktop.presentation.home.common.ItemChoose
 internal fun SizesRow(
     sizes: List<ProductSize>,
     onSizeClick: (Int) -> Unit,
-    selectedSize: Int,
+    selectedSizeId: Int,
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(end = 15.dp)
 ) {
@@ -38,13 +38,13 @@ internal fun SizesRow(
             items(items = sizes, key = { size -> size.size }) { size ->
                 ItemChoose(
                     categoryTitle = size.size.toString(),
-                    selected = size.size == selectedSize,
+                    selected = size.sizeId == selectedSizeId,
                     enabled = size.quantity != 0,
                     modifier = Modifier
                         .width(50.dp)
                         .then(
                             if (size.quantity != 0) {
-                                Modifier.clickable { onSizeClick(size.size) }
+                                Modifier.clickable { onSizeClick(size.sizeId) }
                             } else {
                                 Modifier
                             }

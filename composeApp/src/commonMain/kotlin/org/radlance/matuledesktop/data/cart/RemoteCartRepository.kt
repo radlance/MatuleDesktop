@@ -44,12 +44,13 @@ class RemoteCartRepository(
                 }
             ) {
                 filter {
-                    CartItemEntity::id eq cartItemId
+                    CartItem::id eq cartItemId
                 }
             }
 
             FetchResult.Success(cartItemId)
         } catch (e: Exception) {
+            println(e.message)
             FetchResult.Error(cartItemId)
         }
     }

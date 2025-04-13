@@ -75,7 +75,7 @@ internal class ProductDetailsScreen(
 
         val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
         val scrollState = rememberScrollState()
-        var selectedProductSize by rememberSaveable { mutableStateOf(-1) }
+        var selectedProductSizeId by rememberSaveable { mutableStateOf(-1) }
 
         val loadContentResult by viewModel.catalogContent.collectAsState()
         val addToFavoriteResult by viewModel.favoriteResult.collectAsState()
@@ -101,7 +101,7 @@ internal class ProductDetailsScreen(
 
                 viewModel.changeLocalCartState(
                     productId = selectedProductId,
-                    size = selectedProductSize
+                    size = selectedProductSizeId
                 )
             },
             onError = {
@@ -109,7 +109,7 @@ internal class ProductDetailsScreen(
 
                 viewModel.changeLocalCartState(
                     productId = selectedProductId,
-                    size = selectedProductSize,
+                    size = selectedProductSizeId,
                     reverse = true
                 )
             },
@@ -174,9 +174,9 @@ internal class ProductDetailsScreen(
 
                                     ProductDetailsSizeSection(
                                         selectedProduct,
-                                        selectedProductSize,
+                                        selectedProductSizeId,
                                         onSizeClick = {
-                                            selectedProductSize = it
+                                            selectedProductSizeId = it
                                             addedInCartCurrent = false
                                         }
                                     )
@@ -214,11 +214,11 @@ internal class ProductDetailsScreen(
                                                 } else {
                                                     viewModel.addProductToCart(
                                                         selectedProductId,
-                                                        selectedProduct.sizes.first { it.size == selectedProductSize }.sizeId
+                                                        selectedProductSizeId
                                                     )
                                                 }
                                             },
-                                            enabled = selectedProductSize != -1,
+                                            enabled = selectedProductSizeId != -1,
                                             modifier = Modifier.weight(1f).height(52.dp)
                                         ) {
                                             val buttonText = if (addedInCartCurrent) {

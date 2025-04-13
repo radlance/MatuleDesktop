@@ -7,5 +7,6 @@ data class CartItemEntity(
     val id: Int,
     val productId: Int,
     val productSize: Int,
-    val quantity: Int
+    val quantity: Int,
+    val stockQuantity: Int
 )

@@ -83,8 +83,7 @@ internal class CheckoutScreen(
             onSuccess = { orderId ->
                 LaunchedEffect(Unit) {
                     navigator.push(SuccessPlaceOrderScreen(imageLoader, viewModel, orderId))
-                    viewModel.resetPlaceOrderState()
-                    viewModel.fetchCartItems()
+                    viewModel.placeOrderUpdate()
                 }
             },
             onError = {
@@ -135,10 +134,10 @@ internal class CheckoutScreen(
                 onSuccess = { fetchContent ->
                     loadCartResult.Show(
                         onSuccess = { cartItems ->
-                            val items = cartItems.filter { it.quantity > 0 }
+                            val items = cartItems.filter { it.cartQuantity > 0 }
 
                             val totalPrice = items.sumOf { item ->
-                                item.quantity * fetchContent.products.first {
+                                item.cartQuantity * fetchContent.products.first {
                                     it.id == item.productId
                                 }.price
                             }
@@ -201,7 +200,7 @@ internal class CheckoutScreen(
 
                                         CheckoutDataItem(
                                             label = stringResource(Res.string.total_amount),
-                                            value = items.sumOf { it.quantity }.toString()
+                                            value = items.sumOf { it.cartQuantity }.toString()
                                         )
 
                                         items.forEach { cartItem ->
@@ -211,7 +210,7 @@ internal class CheckoutScreen(
 
                                             CheckoutDataItem(
                                                 label = "${product.title}, ${cartItem.productSize} размер",
-                                                value = "${numberFormat.format(product.price)} ₽ x${cartItem.quantity}"
+                                                value = "${numberFormat.format(product.price)} ₽ x${cartItem.cartQuantity}"
                                             )
                                         }
 

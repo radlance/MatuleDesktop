@@ -97,7 +97,7 @@ internal class CartCoreScreen(
                 onSuccess = { fetchContent ->
                     loadCartResult.Show(
                         onSuccess = { cartItems ->
-                            val items = cartItems.filter { it.quantity > 0 }
+                            val items = cartItems.filter { it.cartQuantity > 0 }
 
                             if (items.isEmpty()) {
                                 Box(
@@ -109,7 +109,7 @@ internal class CartCoreScreen(
                             } else {
                                 Row(modifier = Modifier.align(Alignment.Start)) {
                                     Text(
-                                        text = "Товары, ${items.sumOf { it.quantity }} шт.",
+                                        text = "Товары, ${items.sumOf { it.cartQuantity }} шт.",
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.SemiBold,
                                         lineHeight = 19.sp
@@ -122,7 +122,7 @@ internal class CartCoreScreen(
                                     )
 
                                     val totalPrice = items.sumOf { item ->
-                                        item.quantity * fetchContent.products.first {
+                                        item.cartQuantity * fetchContent.products.first {
                                             it.id == item.productId
                                         }.price
                                     }
@@ -151,7 +151,8 @@ internal class CartCoreScreen(
                                                 imageLoader = imageLoader,
                                                 product = fetchContent.products.first { it.id == cartItem.productId },
                                                 size = cartItem.productSize,
-                                                quantity = cartItem.quantity,
+                                                cartQuantity = cartItem.cartQuantity,
+                                                stockQuantity = cartItem.stockQuantity,
                                                 numberFormat = numberFormat,
                                                 onChangeQuantityClick = { quantity, increment ->
                                                     viewModel.updateProductQuantity(

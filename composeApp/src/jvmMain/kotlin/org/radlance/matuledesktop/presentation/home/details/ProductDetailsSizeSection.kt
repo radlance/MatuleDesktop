@@ -17,7 +17,7 @@ import org.radlance.matuledesktop.domain.product.Product
 @Composable
 fun ProductDetailsSizeSection(
     selectedProduct: Product,
-    selectedProductSize: Int,
+    selectedProductSizeId: Int,
     onSizeClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -34,7 +34,7 @@ fun ProductDetailsSizeSection(
         SizesRow(
             sizes = selectedProduct.sizes,
             onSizeClick = onSizeClick,
-            selectedSize = selectedProductSize
+            selectedSizeId = selectedProductSizeId
         )
     }
 }

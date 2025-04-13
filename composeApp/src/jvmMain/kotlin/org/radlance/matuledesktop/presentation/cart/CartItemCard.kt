@@ -32,7 +32,8 @@ internal fun CartItemCard(
     imageLoader: ImageLoader,
     product: Product,
     size: Int,
-    quantity: Int,
+    cartQuantity: Int,
+    stockQuantity: Int,
     numberFormat: NumberFormat,
     onChangeQuantityClick: (quantity: Int, increment: Boolean) -> Unit,
     modifier: Modifier = Modifier
@@ -81,7 +82,7 @@ internal fun CartItemCard(
                 OutlinedIconButton(
                     onClick = {
                         onChangeQuantityClick(
-                            quantity.dec(),
+                            cartQuantity.dec(),
                             false
                         )
                     }
@@ -96,7 +97,7 @@ internal fun CartItemCard(
                 Spacer(Modifier.width(4.dp))
 
                 Text(
-                    text = quantity.toString(),
+                    text = cartQuantity.toString(),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     lineHeight = 20.sp
@@ -107,10 +108,11 @@ internal fun CartItemCard(
                 OutlinedIconButton(
                     onClick = {
                         onChangeQuantityClick(
-                            quantity.inc(),
+                            cartQuantity.inc(),
                             true
                         )
-                    }
+                    },
+                    enabled = cartQuantity < stockQuantity
                 ) {
                     Icon(
                         imageVector = Icons.Default.Add,

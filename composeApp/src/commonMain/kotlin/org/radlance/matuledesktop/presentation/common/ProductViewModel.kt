@@ -101,6 +101,12 @@ class ProductViewModel(
         }
     }
 
+    fun placeOrderUpdate() {
+        resetPlaceOrderState()
+        fetchCartItems()
+        fetchContent()
+    }
+
     fun updateCurrentQuantity(cartItemId: Int, increment: Boolean) {
         updateLocalState(_cartContent) { currentState ->
             updateCartItemQuantity(currentState, cartItemId, increment)
@@ -115,8 +121,8 @@ class ProductViewModel(
         val updatedProducts = currentState.data.map { cartItem ->
             if (cartItem.id == cartItemId) {
                 val newQuantity =
-                    if (increment) cartItem.quantity.inc() else cartItem.quantity.dec()
-                cartItem.copy(quantity = newQuantity)
+                    if (increment) cartItem.cartQuantity.inc() else cartItem.cartQuantity.dec()
+                cartItem.copy(cartQuantity = newQuantity)
             } else {
                 cartItem
             }
@@ -160,10 +166,10 @@ class ProductViewModel(
         val updatedCartItems = currentState.data.map { cartItem ->
             if (cartItem.productId == productId && cartItem.productSize == size) {
                 cartItem.copy(
-                    quantity = if (reverse) {
-                        cartItem.quantity.dec()
+                    cartQuantity = if (reverse) {
+                        cartItem.cartQuantity.dec()
                     } else {
-                        cartItem.quantity.inc()
+                        cartItem.cartQuantity.inc()
                     }
                 )
             } else {

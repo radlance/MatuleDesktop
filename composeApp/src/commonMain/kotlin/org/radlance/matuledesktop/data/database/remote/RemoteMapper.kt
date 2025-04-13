@@ -1,7 +1,6 @@
 package org.radlance.matuledesktop.data.database.remote
 
 import org.radlance.matuledesktop.data.database.remote.entity.BrandEntity
-import org.radlance.matuledesktop.data.database.remote.entity.CartItemEntity
 import org.radlance.matuledesktop.data.database.remote.entity.CategoryEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ClaspTypeEntity
 import org.radlance.matuledesktop.data.database.remote.entity.ColorEntity
@@ -82,11 +81,12 @@ abstract class RemoteMapper {
         return ProductColor(id = id, name = name, red = red, green = green, blue = blue)
     }
 
-    protected fun CartItemEntity.toCartItem(): CartItem {
+    protected fun org.radlance.matuledesktop.data.database.remote.entity.CartItemEntity.toCartItem(): CartItem {
         return CartItem(
             productId = productId,
             productSize = productSize,
-            quantity = quantity,
+            cartQuantity = quantity,
+            stockQuantity = stockQuantity,
             id = id
         )
     }
