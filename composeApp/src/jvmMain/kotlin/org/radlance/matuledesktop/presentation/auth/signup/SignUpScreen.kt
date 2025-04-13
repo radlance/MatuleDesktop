@@ -104,10 +104,18 @@ internal object SignUpScreen : Screen {
                         nameFieldValue = it
                         viewModel.resetNameError()
                     },
-                    label = { Text(text = stringResource(Res.string.your_name)) },
+                    label = {
+                        val text =
+                            if (authUiState.nameErrorMessage.isEmpty() || nameFieldValue.isEmpty()) {
+                                stringResource(Res.string.your_name)
+                            } else {
+                                authUiState.nameErrorMessage
+                            }
+                        Text(text = text)
+                    },
                     placeholder = { Text(text = stringResource(Res.string.name_hint)) },
                     singleLine = true,
-                    isError = !authUiState.isCorrectName,
+                    isError = authUiState.nameErrorMessage.isNotEmpty(),
                     modifier = Modifier.width(300.dp)
                 )
 
@@ -117,10 +125,18 @@ internal object SignUpScreen : Screen {
                         emailFieldValue = it
                         viewModel.resetEmailError()
                     },
-                    label = { Text(text = stringResource(Res.string.email)) },
+                    label = {
+                        val text =
+                            if (authUiState.emailErrorMessage.isEmpty() || emailFieldValue.isEmpty()) {
+                                stringResource(Res.string.email)
+                            } else {
+                                authUiState.emailErrorMessage
+                            }
+                        Text(text = text)
+                    },
                     placeholder = { Text(text = stringResource(Res.string.email_hint)) },
                     singleLine = true,
-                    isError = !authUiState.isCorrectEmail,
+                    isError = authUiState.emailErrorMessage.isNotEmpty(),
                     modifier = Modifier.width(300.dp)
                 )
 
@@ -131,8 +147,16 @@ internal object SignUpScreen : Screen {
                         viewModel.resetPasswordError()
                     },
                     singleLine = true,
-                    isError = !authUiState.isCorrectPassword,
-                    label = { Text(text = stringResource(Res.string.password)) },
+                    isError = authUiState.passwordErrorMessage.isNotEmpty(),
+                    label = {
+                        val text =
+                            if (authUiState.passwordErrorMessage.isEmpty() || passwordFieldValue.isEmpty()) {
+                                stringResource(Res.string.password)
+                            } else {
+                                authUiState.passwordErrorMessage
+                            }
+                        Text(text = text)
+                    },
                     placeholder = { Text(text = stringResource(Res.string.password_hint)) },
                     visualTransformation = passwordState.visualTransformation(),
                     trailingIcon = {

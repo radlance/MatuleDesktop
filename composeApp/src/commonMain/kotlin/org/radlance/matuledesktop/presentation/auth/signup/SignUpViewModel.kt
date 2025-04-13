@@ -25,7 +25,7 @@ class SignUpViewModel(
     fun signUp(name: String, email: String, password: String) {
         validateFields(name = name, email = email, password = password)
         with(authUiState.value) {
-            if (isCorrectEmail && isCorrectPassword) {
+            if (emailErrorMessage.isEmpty() && passwordErrorMessage.isEmpty()) {
                 viewModelScope.launch {
                     val user = User(firstName = name, email = email, password = password)
                     _signUpResultUiState.value = AuthResultUiState.Loading()

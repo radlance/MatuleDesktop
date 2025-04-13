@@ -21,28 +21,28 @@ abstract class AuthViewModel(
     ) {
         authUiStateMutable.update { currentState ->
             currentState.copy(
-                isCorrectName = name?.let { validation.validName(it) } ?: true,
-                isCorrectEmail = email?.let { validation.validEmail(it) } ?: true,
-                isCorrectPassword = password?.let { validation.validPassword(password) } ?: true
+                nameErrorMessage = name?.let { validation.validName(it) } ?: "",
+                emailErrorMessage = email?.let { validation.validEmail(it) } ?: "",
+                passwordErrorMessage = password?.let { validation.validPassword(password) } ?: ""
             )
         }
     }
 
     fun resetEmailError() {
         authUiStateMutable.update { currentState ->
-            currentState.copy(isCorrectEmail = true)
+            currentState.copy(emailErrorMessage = "")
         }
     }
 
     fun resetPasswordError() {
         authUiStateMutable.update { currentState ->
-            currentState.copy(isCorrectPassword = true)
+            currentState.copy(passwordErrorMessage = "")
         }
     }
 
     fun resetNameError() {
         authUiStateMutable.update { currentState ->
-            currentState.copy(isCorrectName = true)
+            currentState.copy(nameErrorMessage = "")
         }
     }
 }

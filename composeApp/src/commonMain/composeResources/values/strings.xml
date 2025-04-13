@@ -6,7 +6,6 @@
     <string name="password">Пароль</string>
     <string name="password_hint">•••••••</string>
     <string name="sign_in">Войти</string>
-    <string name="create_user">Создать пользователя</string>
     <string name="registration">Регистрация</string>
     <string name="your_name">Ваше имя</string>
     <string name="name_hint">xxxxxxxx</string>

@@ -1,7 +1,7 @@
 package org.radlance.matuledesktop.presentation.auth.common
 
 data class AuthUiState(
-    val isCorrectName: Boolean = true,
-    val isCorrectEmail: Boolean = true,
-    val isCorrectPassword: Boolean = true
+    val nameErrorMessage: String = "",
+    val emailErrorMessage: String = "",
+    val passwordErrorMessage: String = ""
 )
