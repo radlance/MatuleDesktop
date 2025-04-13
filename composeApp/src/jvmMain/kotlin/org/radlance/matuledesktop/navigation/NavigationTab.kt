@@ -17,9 +17,9 @@ import matuledesktop.composeapp.generated.resources.home_screen
 import matuledesktop.composeapp.generated.resources.order_history
 import org.jetbrains.compose.resources.stringResource
 import org.radlance.matuledesktop.presentation.cart.CartScreen
-import org.radlance.matuledesktop.presentation.history.OrderHistoryScreen
 import org.radlance.matuledesktop.presentation.common.ProductViewModel
 import org.radlance.matuledesktop.presentation.favorite.FavoriteScreen
+import org.radlance.matuledesktop.presentation.history.OrderHistoryScreen
 import org.radlance.matuledesktop.presentation.home.core.HomeScreen
 
 interface NavigationTab : Tab {
@@ -27,11 +27,11 @@ interface NavigationTab : Tab {
     fun icon(): ImageVector
 
 
-    data class Home(
+    class Home(
         private val imageLoader: ImageLoader,
-        private val viewModel: ProductViewModel
+        private val viewModel: ProductViewModel,
+        private val resetNavigation: Boolean = false
     ) : NavigationTab {
-
         override fun icon(): ImageVector = Icons.Default.Home
 
         override val options: TabOptions
@@ -40,7 +40,25 @@ interface NavigationTab : Tab {
 
         @Composable
         override fun Content() {
-            HomeScreen(imageLoader, viewModel)
+            HomeScreen(imageLoader, viewModel, resetNavigation)
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as Home
+
+            if (imageLoader != other.imageLoader) return false
+            if (viewModel != other.viewModel) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            var result = imageLoader.hashCode()
+            result = 31 * result + viewModel.hashCode()
+            return result
         }
     }
 

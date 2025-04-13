@@ -66,7 +66,7 @@ class OrderHistoryDetailsScreen(
         val orderViewModel = koinViewModel<OrderViewModel>()
         val navigator = LocalNavigator.currentOrThrow
 
-        val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
         val zoneId = ZoneId.systemDefault()
         val scrollState = rememberScrollState()
         var currentUser by remember { mutableStateOf(User()) }

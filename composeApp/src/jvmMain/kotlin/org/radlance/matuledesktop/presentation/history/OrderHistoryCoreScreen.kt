@@ -56,7 +56,7 @@ class OrderHistoryCoreScreen(
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
 
         val loadHistoryResulUiState by viewModel.loadHistoryResultUiState.collectAsState()
         val fetchContentResultUiState by viewModel.catalogContent.collectAsState()
@@ -168,6 +168,8 @@ class OrderHistoryCoreScreen(
                                                 )
                                             }
                                         }
+
+                                        Spacer(Modifier.height(10.dp))
                                     }
 
 

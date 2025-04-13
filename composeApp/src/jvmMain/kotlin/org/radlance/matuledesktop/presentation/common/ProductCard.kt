@@ -61,7 +61,7 @@ internal fun ProductCard(
 
 @Composable
 private fun ProductCardDetails(product: Product, onLikeClick: () -> Unit) {
-    val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+    val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
 
     Spacer(Modifier.height(12.dp))
 

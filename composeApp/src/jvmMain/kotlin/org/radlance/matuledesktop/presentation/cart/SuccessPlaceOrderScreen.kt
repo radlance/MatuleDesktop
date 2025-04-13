@@ -25,15 +25,24 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
+import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.return_to_shopping
 import org.jetbrains.compose.resources.stringResource
+import org.radlance.matuledesktop.navigation.NavigationTab
+import org.radlance.matuledesktop.presentation.common.ProductViewModel
 
-internal class SuccessPlaceOrderScreen(private val orderId: Int) : Screen {
+internal class SuccessPlaceOrderScreen(
+    private val imageLoader: ImageLoader,
+    private val viewModel: ProductViewModel,
+    private val orderId: Int
+) : Screen {
 
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
+        val tabNavigator = LocalTabNavigator.current
 
         Column(
             modifier = Modifier.fillMaxSize().padding(top = 15.dp),
@@ -83,8 +92,16 @@ internal class SuccessPlaceOrderScreen(private val orderId: Int) : Screen {
 
                 Spacer(Modifier.height(10.dp))
 
+
                 Button(
-                    onClick = navigator::popUntilRoot
+                    onClick = {
+                        tabNavigator.current = NavigationTab.Home(
+                            imageLoader = imageLoader,
+                            viewModel = viewModel,
+                            resetNavigation = true
+                        )
+                        repeat(2) { navigator.pop() }
+                    }
                 ) {
                     Text(text = stringResource(Res.string.return_to_shopping))
                 }

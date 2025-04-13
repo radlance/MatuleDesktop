@@ -73,7 +73,7 @@ internal class ProductDetailsScreen(
         val navigator = LocalNavigator.currentOrThrow
         val containerSize = LocalWindowInfo.current.containerSize
 
-        val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
         val scrollState = rememberScrollState()
         var selectedProductSize by rememberSaveable { mutableStateOf(-1) }
 

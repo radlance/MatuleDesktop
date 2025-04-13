@@ -60,7 +60,7 @@ internal class CartCoreScreen(
         val quantityResult by viewModel.quantityResult.collectAsState()
 
         val verticalScrollState = rememberScrollState()
-        val numberFormat: NumberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        val numberFormat: NumberFormat = NumberFormat.getNumberInstance(Locale("ru"))
         var incrementCurrent by rememberSaveable { mutableStateOf(false) }
 
         quantityResult.Show(
@@ -176,7 +176,7 @@ internal class CartCoreScreen(
                                             Button(
                                                 onClick = {
                                                     navigator.push(
-                                                        CheckoutScreen(viewModel)
+                                                        CheckoutScreen(imageLoader, viewModel)
                                                     )
                                                 },
                                                 modifier = Modifier

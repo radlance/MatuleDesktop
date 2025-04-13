@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import coil3.ImageLoader
 import matuledesktop.composeapp.generated.resources.Res
 import matuledesktop.composeapp.generated.resources.email_full
 import matuledesktop.composeapp.generated.resources.load_error
@@ -57,7 +58,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen {
+internal class CheckoutScreen(
+    private val imageLoader: ImageLoader,
+    private val viewModel: ProductViewModel
+) : Screen {
 
     @Composable
     override fun Content() {
@@ -72,13 +76,13 @@ internal class CheckoutScreen(private val viewModel: ProductViewModel) : Screen 
         val placeOrderResultUiState by viewModel.placeOrderResultUIState.collectAsState()
         val userUiState by orderViewModel.userUiState.collectAsState()
 
-        val numberFormat = NumberFormat.getNumberInstance(Locale.of("ru"))
+        val numberFormat = NumberFormat.getNumberInstance(Locale("ru"))
         var placeOrderButtonEnabled by remember { mutableStateOf(true) }
 
         placeOrderResultUiState.Show(
             onSuccess = { orderId ->
                 LaunchedEffect(Unit) {
-                    navigator.push(SuccessPlaceOrderScreen(orderId))
+                    navigator.push(SuccessPlaceOrderScreen(imageLoader, viewModel, orderId))
                     viewModel.resetPlaceOrderState()
                     viewModel.fetchCartItems()
                 }
